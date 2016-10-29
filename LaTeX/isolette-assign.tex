@@ -1,0 +1,223 @@
+% !TEX encoding = UTF-8
+%Koma article
+\documentclass[fontsize=12pt,paper=letter,twoside]{scrartcl}
+
+%Standard Pre-amble
+\input{sty/defns.tex}
+
+% Set the header
+\ihead[]{\small EECS4312 Isolette Assignment}
+\title{EECS4312 Isolette Assignment}
+
+%Useful definitions
+%\newcommand{\mv}[1]{\textit{m\_#1}}
+%\newcommand{\cv}[1]{\textit{c\_#1}}
+%\newcommand{\degree}[1]{^{\circ}\mathrm{#1}}
+%\newcommand{\comment}[1]{{\footnotesize \quad\texttt{--}\textrm{#1}}}
+
+%%%%%%%%%%%%Enter your names here%%%%%%%%
+\author{\hl{Firstname1 Lastname1 (cse99999\@cse.yorku.ca)}
+\and \hl{Firstname2 Lastname2 (cse99998\@cse.yorku.ca)}
+}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\date{\today} % Display a given date or no date
+
+\begin{document}
+\maketitle
+
+\noindent You may work on your own or in a team of no more than two students. \textbf{Submit only one document under one Prism account.} 
+
+\bigskip
+\noindent \textbf{Prism account used for submission}: \hl{Prism account used}
+
+\bigskip\noindent
+Keep track of your revisions in the table below.
+
+\section*{Revisions}
+
+%%%%%%%%%%%%Table of revisions%%%%%%%%
+\begin{tabular}{|l|l|p{3in}|}
+\hline
+Date & Revision& Description \\ 
+\hline
+?? November  2016
+& 1.0       
+& Initial requirements document\\ 
+\hline
+??
+& 2.0      
+& \hl{Add more here if needed}     \\
+\hline
+\end{tabular}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\newpage
+
+\vspace*{2in}
+\begin{center}
+\huge{\textbf{Requirements Document}:\\ Temperature control for an Isolette}
+\end{center}
+
+\newpage
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\tableofcontents
+\listoffigures
+\listoftables
+\newpage
+
+%%%%Rest of your document goes here%%%%%%%%%%%%%%%%%%%
+
+\section{System Overview}
+
+The System Under Development (SUD) is a computer controller for the thermostat of an Isolette.\footnote{%
+The image in Fig~\ref{fig:isolette} is from: \url{www.nufer-medical.ch}.}
+An Isolette is an incubator for for an infant that provides controlled temperature, humidity and oxygen (Fig.~\ref{fig:isolette}). Isolettes are used extensively in Neonatal Intensive Care Units for the care of premature infants.
+
+This requirements document is specifically for the control of temperature. The purpose of the Isolette computer controller is to maintain the air temperature of an Isolette within a desired range. It senses the current temperature of the Isolette and turns the heat source on and off to warm the air as needed. If the temperature falls too far below or rises too far above the desired temperature range, it activates an alarm to alert the nurse. The system allows the nurse to set the desired temperature range and to set the alarm temperature range outside the desired temperature range of which the alarm should be activated. This requirements documents follows the specification in \cite{REMH} (Appendix A) except where noted.
+
+\begin{figure}[!htb]
+\begin{center}
+\includegraphics[width=.4\textwidth]{pics/isolette.png}
+\end{center}
+\caption{Isolette}
+\label{fig:isolette}
+\end{figure}
+
+\section{Context Diagram}
+ 
+See Fig. A-1 in \cite{REMH}. The System Under Description (SUD) is a computer \emph{controller} to regulate the temperature of the Isolette. Everything else including the Operator Interface (described in \cite{REMH}) is in the ecosystem (i.e. in the environment of the controller). The monitored variables and controlled variables for the controller are in Table~\ref{table:monitored} and 
+Table~\ref{tbl:cv}, respectively. For clarity, simplicity and safety, there are some differences between the specifications in this document and the descriptions in \cite{REMH}.\footnote{%
+Documented in the write-up to this assignment: \texttt{assign1-spec.pdf}.}
+
+\hl{Placeholder for your Context Diagram}
+
+\section{Goals}
+
+The high-level goals (G) of the system are:
+
+\begin{mylist}
+\item G1---The Infant should be kept at a safe and comfortable temperature.
+
+\item G2---The Nurse should be warned if the Infant becomes too hot or too cold.
+
+\item G3---The cost of manufacturing the computer controller for the thermostat should be as low as possible.
+\end{mylist}
+
+\section{Monitored Variables}
+
+\hl{Ensure that the tables are completed.}
+
+The monitored variables are a subset of those described in \cite{REMH}.\footnote{With some change of nomenclature. Monitored variables have an ``m'' prefix.} There is a single status variable \mv{st} that is \emph{invalid} whenever any one of the operator inputs or temperature sensor are in a failed state. Otherwise types and ranges are as in \cite{REMH}.
+
+% Please add the following required packages to your document preamble:
+% \usepackage[table,xcdraw]{xcolor}
+% If you use beamer only pass "xcolor=table" option, i.e. \documentclass[xcolor=table]{beamer}
+\begin{table}[h]
+\begin{tabular}{|l|l|l|l|l|}
+\hline
+\cellcolor[HTML]{EFEFEF}Name & \cellcolor[HTML]{EFEFEF}Type & Range              & \cellcolor[HTML]{EFEFEF}Units & \cellcolor[HTML]{EFEFEF}Physical Interpretation                                       \\ \hline
+\mv{tm}                      & $\Rl$                        &                    &                               & \begin{tabular}[c]{@{}l@{}}actual temperature of Isolette \\ air temperature from sensor\end{tabular} \\ \hline
+\mv{dl}                      & $\intg$                      & $97 \upto 99$      & $\degree{F}$                   & \begin{tabular}[c]{@{}l@{}}desired lower temperature\\ set by operator\end{tabular}   \\ \hline
+\mv{dh}                      & $\intg$                      &                    &                               & \begin{tabular}[c]{@{}l@{}}desired higher temperature\\ set by operator\end{tabular}  \\ \hline
+\mv{al}                      & $\intg$                      &                    &                               & \begin{tabular}[c]{@{}l@{}}lower alarm temperature\\ set by operator\end{tabular}     \\ \hline
+\mv{ah}                      & $\intg$                      &                    &                               & \begin{tabular}[c]{@{}l@{}}higher alarm temperature \\ set by operator\end{tabular}   \\ \hline
+\mv{st}                      & Enumerated                   & \{valid, invalid\} &                               & \begin{tabular}[c]{@{}l@{}}status of sensor and \\ operator settings\end{tabular}     \\ \hline
+\mv{sw}                      & Enumerated                   & \{on, off\}        &                               & switch set by operator                                                                \\ \hline
+\end{tabular}
+\caption{Monitored Variables}
+\label{table:monitored}
+\end{table}
+
+
+\section{Controlled Variables}
+
+\hl{Ensure that the table below is complete.}
+
+The controlled variables are a subset of those described in \cite{REMH}.\footnote{With some change of nomenclature. Controlled variables have a ``c'' prefix.} In addition, there is a mode display \cv{md} and a message display \cv{ms}.\footnote{The mode ``off'' is added to that of Fig.~A-4 in \cite{REMH}, and the mode transitions have been changed.}
+
+% Please add the following required packages to your document preamble:
+% \usepackage[table,xcdraw]{xcolor}
+% If you use beamer only pass "xcolor=table" option, i.e. \documentclass[xcolor=table]{beamer}
+\begin{table}[h]
+\begin{tabular}{|l|l|l|l|l|}
+\hline
+\cellcolor[HTML]{EFEFEF}Name & \cellcolor[HTML]{EFEFEF}Type & Range                                                                    & \cellcolor[HTML]{EFEFEF}Units & \cellcolor[HTML]{EFEFEF}Physical Interpretation                                                         \\ \hline
+\cv{hc}                      & Enumerated                   & \{on, off\}                                                              &                               & \begin{tabular}[c]{@{}l@{}}heat control: command to\\ turn heat source on or off\end{tabular}           \\ \hline
+\cv{td}                      & $\intg$                      & $\{0\} \bunion \{68 \upto 105\}$                                         & $\degree{F}$                  & \begin{tabular}[c]{@{}l@{}}displayed temperature of Isolette\\ (zero when Isolette is off)\end{tabular} \\ \hline
+\cv{al}                      & Enumerated                   & \{off, on\}                                                              &                               & sound alarm to call nurse                                                                               \\ \hline
+\cv{md}                      & Enumerated                   & \begin{tabular}[c]{@{}l@{}}\{off, init, \\ normal, failed\}\end{tabular} &                               & \begin{tabular}[c]{@{}l@{}}mode of Isolette operation\\ (failed if $\mv{st} = invalid$)\end{tabular}    \\ \hline
+\cv{ms}                      & Enumerated                   &                                                                          &                               & messages to display to nurse                                                                            \\ \hline
+\end{tabular}
+\caption {Controlled Variables}
+\label{tbl:cv}
+\end{table}
+
+\section{Mode Diagram}
+
+\hl{To Do}. Provide a statechart for the mode-diagram and provide rationale for the statechart.
+
+%% Deactivate this to place your own work
+%\input{sty/sample.tex}
+
+\section{E/R-descriptions}
+
+\hl{To be Done}
+
+\hl{Include the REQ descriptions provided in the write-up and add the next three most important REQs}. (You may include the remaining REQs in an appendix to this document, if you wish). Provide a rationale for each REQ.
+
+\hl{Include the ENV descriptions provided in the write-up and add the next three most important ENVs}. (You may include the rest in an appendix to this document, if you wish). Provide a rationale for each ENV.
+
+\section{Abstract variables needed for the Function Table}
+
+\hl{If needed, provide abstract variables here. Otherwise, state that abstract variables are not needed.}
+
+\reqm{REQ}
+{The \emph{controller} shall operate in one of four modes: \emph{off}, \emph{init}, \emph{normal} and \emph{fail}.\\}
+{See statechart in Fig.~\ref{fig:sc}.}
+\label{R1}
+
+\reqm{ENV}
+{The current temperature received from the sensor is a a real number in the range $68.0$ to $105.0 \degree{F}$.\\}
+{?????}
+\label{E1}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Function Table}
+
+
+\hl{Provide one function table for each control variable} (in Table~\ref{tbl:cv}). Each control variable should have its own sub-section heading.
+
+\subsection{Function Table for heat control: \cv{hc}}
+
+\hl{To be Done for this sub-section and all the others}. Function table for \cv{hc} goes here.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\section{Validation}
+\hl{To be Done.} 
+Proof of completeness and disjointness and validation of the requirements using PVS.
+
+Include the PVS sources in the appendix to this document but summarize the proofs here.
+
+\section{Use Cases}
+
+See Section A2 of \cite{REMH} for some use cases. The use cases need to be adapted to the revised descriptions of the previous sections of this document.
+
+\section{Acceptance Tests}
+
+In this section, the use cases have to be converted into precise acceptance tests (using the function table to describe pre/post conditions) to be run when the design and implementation are complete.
+
+\section{Traceability}
+
+Matrix to show which acceptance tests passed, and which R-descriptions they checked.
+
+
+\section{Glossary}
+
+The definition of important terms is placed in this section. You are not required to complete this.
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\bibliographystyle{plain}
+\bibliography{ref}
+\end{document}  
