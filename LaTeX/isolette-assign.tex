@@ -17,7 +17,7 @@
 
 %%%%%%%%%%%%Enter your names here%%%%%%%%
 \author{Drew Noel (cse23217\@cse.yorku.ca)
-\and \hl{Firstname2 Lastname2 (cse99998\@cse.yorku.ca)}
+\and{Yuval Alter (cse23163\@cse.yorku.ca)}
 }
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
@@ -88,6 +88,16 @@ Table~\ref{tbl:cv}, respectively. For clarity, simplicity and safety, there are 
 Documented in the write-up to this assignment: \texttt{assign1-spec.pdf}.}
 
 \hl{Placeholder for your Context Diagram}
+%Context Diagram Placed
+
+\begin{figure}[!htb]
+\begin{center}
+\includegraphics[width=.4\textwidth]{pics/SUD.png}
+\end{center}
+\caption{SUD Diagram For The Isolette}
+\label{fig:isolette_sud}
+\end{figure}
+%SUD Diagram created using www.draw.io
 
 \section{Goals}
 
@@ -106,6 +116,7 @@ The high-level goals (G) of the system are:
 \hl{Ensure that the tables are completed.}
 
 The monitored variables are a subset of those described in \cite{REMH}.\footnote{With some change of nomenclature. Monitored variables have an ``m'' prefix.} There is a single status variable \mv{st} that is \emph{invalid} whenever any one of the operator inputs or temperature sensor are in a failed state. Otherwise types and ranges are as in \cite{REMH}.
+%Monitored and controlled variables tables filled out, **Still need to do messages(c_ms)**
 
 % Please add the following required packages to your document preamble:
 % \usepackage[table,xcdraw]{xcolor}
@@ -114,11 +125,11 @@ The monitored variables are a subset of those described in \cite{REMH}.\footnote
 \begin{tabular}{|l|l|l|l|l|}
 \hline
 \cellcolor[HTML]{EFEFEF}Name & \cellcolor[HTML]{EFEFEF}Type & Range              & \cellcolor[HTML]{EFEFEF}Units & \cellcolor[HTML]{EFEFEF}Physical Interpretation                                       \\ \hline
-\mv{tm}                      & $\Rl$                        &                    &                               & \begin{tabular}[c]{@{}l@{}}actual temperature of Isolette \\ air temperature from sensor\end{tabular} \\ \hline
+\mv{tm}                      & $\Rl$                        & $68.0 \upto 105.0$       & $\degree{F}$                   & \begin{tabular}[c]{@{}l@{}}actual temperature of Isolette \\ air temperature from sensor\end{tabular} \\ \hline
 \mv{dl}                      & $\intg$                      & $97 \upto 99$      & $\degree{F}$                   & \begin{tabular}[c]{@{}l@{}}desired lower temperature\\ set by operator\end{tabular}   \\ \hline
-\mv{dh}                      & $\intg$                      &                    &                               & \begin{tabular}[c]{@{}l@{}}desired higher temperature\\ set by operator\end{tabular}  \\ \hline
-\mv{al}                      & $\intg$                      &                    &                               & \begin{tabular}[c]{@{}l@{}}lower alarm temperature\\ set by operator\end{tabular}     \\ \hline
-\mv{ah}                      & $\intg$                      &                    &                               & \begin{tabular}[c]{@{}l@{}}higher alarm temperature \\ set by operator\end{tabular}   \\ \hline
+\mv{dh}                      & $\intg$                      & $98 \upto 100$      & $\degree{F}$                   & \begin{tabular}[c]{@{}l@{}}desired higher temperature\\ set by operator\end{tabular}  \\ \hline
+\mv{al}                      & $\intg$                      & $93 \upto 98$      & $\degree{F}$                   & \begin{tabular}[c]{@{}l@{}}lower alarm temperature\\ set by operator\end{tabular}     \\ \hline
+\mv{ah}                      & $\intg$                      & $99 \upto 103$      & $\degree{F}$                   & \begin{tabular}[c]{@{}l@{}}higher alarm temperature \\ set by operator\end{tabular}   \\ \hline
 \mv{st}                      & Enumerated                   & \{valid, invalid\} &                               & \begin{tabular}[c]{@{}l@{}}status of sensor and \\ operator settings\end{tabular}     \\ \hline
 \mv{sw}                      & Enumerated                   & \{on, off\}        &                               & switch set by operator                                                                \\ \hline
 \end{tabular}
