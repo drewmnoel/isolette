@@ -16,7 +16,7 @@ BEGIN
 	% Controlled Variables Types
 	DISP_TEMP: TYPE = {y: nat | y = 0 OR (68 <= y AND y <= 105)}
 	MODE: TYPE = {off, init, normal, failed}
-	MSG: TYPE = {ok}
+	MSG: TYPE = {ok, invalid_alarm_high, invalid_alarm_low, alarm_triggered}
 
 	% Monitored Variables
 	m_tm: [DTIME->TM_TEMP]
