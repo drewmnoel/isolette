@@ -114,7 +114,6 @@ The high-level goals (G) of the system are:
 \hl{Ensure that the tables are completed.}
 
 The monitored variables are a subset of those described in \cite{REMH}.\footnote{With some change of nomenclature. Monitored variables have an ``m'' prefix.} There is a single status variable \mv{st} that is \emph{invalid} whenever any one of the operator inputs or temperature sensor are in a failed state. Otherwise types and ranges are as in \cite{REMH}.
-%Monitored and controlled variables tables filled out, **Still need to do messages(c_ms)**
 
 % Please add the following required packages to your document preamble:
 % \usepackage[table,xcdraw]{xcolor}
@@ -153,7 +152,7 @@ The controlled variables are a subset of those described in \cite{REMH}.\footnot
 \cv{td}                      & $\intg$                      & $\{0\} \bunion \{68 \upto 105\}$                                         & $\degree{F}$                  & \begin{tabular}[c]{@{}l@{}}displayed temperature of Isolette\\ (zero when Isolette is off)\end{tabular} \\ \hline
 \cv{al}                      & Enumerated                   & \{off, on\}                                                              &                               & sound alarm to call nurse                                                                               \\ \hline
 \cv{md}                      & Enumerated                   & \begin{tabular}[c]{@{}l@{}}\{off, init, \\ normal, failed\}\end{tabular} &                               & \begin{tabular}[c]{@{}l@{}}mode of Isolette operation\\ (failed if $\mv{st} = invalid$)\end{tabular}    \\ \hline
-\cv{ms}                      & Enumerated                   & \begin{tabular}[c]{@{}l@{}}\{ok\}\end{tabular} &                               & messages to display to nurse                                                                            \\ \hline
+\cv{ms}                      & Enumerated                   & \begin{tabular}[c]{@{}l@{}}\{ok, invalid\_alarm\_high, \\ invalid\_alarm\_low\, \\ alarm\_triggered\}\end{tabular} &                               & messages to display to nurse                                                                            \\ \hline
 \end{tabular}
 \caption {Controlled Variables}
 \label{tbl:cv}
@@ -162,9 +161,6 @@ The controlled variables are a subset of those described in \cite{REMH}.\footnot
 \section{Mode Diagram}
 
 \hl{To Do}. Provide a statechart for the mode-diagram and provide rationale for the statechart.
-
-%% Deactivate this to place your own work
-%\input{sty/sample.tex}
 
 \section{E/R-descriptions}
 
