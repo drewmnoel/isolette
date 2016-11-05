@@ -164,9 +164,38 @@ The controlled variables are a subset of those described in \cite{REMH}.\footnot
 
 \section{E/R-descriptions}
 
-\hl{To be Done}
+% The following requirements were provided in isolette-readme.pdf
+\reqm{REQ}
+{The \emph{controller} shall operate in one of four modes: \emph{off}, \emph{init}, \emph{normal} and \emph{fail}.\\}
+{See statechart in Fig.~\ref{fig:sc}.}
+\label{R1}
+\textbf{Rationale}: \hl{TODO}
 
-\hl{Include the REQ descriptions provided in the write-up and add the next three most important REQs}. (You may include the remaining REQs in an appendix to this document, if you wish). Provide a rationale for each REQ.
+\reqm{REQ}
+{In the \emph{normal} mode, the temperature controller shall maintain current temperature inside the Isolette within a set temperature range (the \emph{desired} range).\\}
+{The \emph{desired} temperature range is \emph{m\_dl..m\_dh}. If the current temperature \emph{m\_th} is outside this range, the controller shall turn the heater on or off via the controlled variable \emph{m\_hc} to maintain the desired state.\\}
+\label{R2}
+\textbf{Rationale}: \hl{TODO}
+
+\reqm{REQ}
+{In \emph{normal} mode, the controller shall activate an alarm whenever:
+\begin{itemize}
+    \item the current temperature falls outside the \emph{alarm} temperature range (either through temperature fluctuation or a change in the alarm range by an operator), or
+    \item a failure is signalled in any of the input devices (temperature sensor and operator settings).\\
+\end{itemize}}
+{The alarm temperature range is \emph{m\_al..m\_ah}. Monitored variable \emph{m\_st} shows ``invalid'' when any of the input signals fail.}
+\label{R3}
+\textbf{Rationale}: \hl{TODO}
+
+\reqm{REQ}
+{Once the alarm is activated, it becomes deactivated in one of two ways:
+\begin{itemize}
+\item The nurse turns off the Isolette
+\item The alarm has lasted for 10 seconds, and after 10 seconds or more the alarm conditions are removed. \\
+\end{itemize}}
+{\hl{TODO}}
+\label{R4}
+\textbf{Rationale}: \hl{TODO}
 
 \hl{Include the ENV descriptions provided in the write-up and add the next three most important ENVs}. (You may include the rest in an appendix to this document, if you wish). Provide a rationale for each ENV.
 
