@@ -1,0 +1,37 @@
+isolette[delta: posreal] : THEORY
+BEGIN
+	importing Time[delta]
+
+	% Defined Types
+	% Monitored Variable Types: The name for the first set corresponds to
+	%		the variable name and it's type (ie. temperature)
+	TM_TEMP: TYPE = {x: real |  68.0 <= x AND x <= 105.0}
+	DL_TEMP: TYPE = {y: nat | 97 >= y AND y >= 99}
+	DH_TEMP: TYPE = {y: nat | 98 >= y AND y >= 100}
+	AL_TEMP: TYPE = {y: nat | 93 >= y AND y >= 98}
+	AH_TEMP: TYPE = {y: nat | 99 >= y AND y >= 103}
+	SENSOR: TYPE = {valid, invalid}
+	SWITCH: TYPE = {on, off}
+
+	% Controlled Variables Types
+	DISP_TEMP: TYPE = {y: nat | y = 0 OR (68 <= y AND y <= 105)}
+	MODE: TYPE = {off, init, normal, failed}
+	MSG: TYPE = {ok}
+
+	% Monitored Variables
+	m_tm: [DTIME->TM_TEMP]
+	m_dl: [DTIME->DL_TEMP]
+	m_dh: [DTIME->DH_TEMP]
+	m_al: [DTIME->AL_TEMP]
+	m_ah: [DTIME->AH_TEMP]
+	m_st: [DTIME->SENSOR]
+	m_sw: [DTIME->SWITCH]
+
+	% Controlled Variables:
+	c_hc: [DTIME->SWITCH]
+	c_td: [DTIME->DISP_TEMP]
+	c_al: [DTIME->SWITCH]
+	c_md: [DTIME->MODE]
+	c_ms: [DTIME->MSG]
+	
+END isolette

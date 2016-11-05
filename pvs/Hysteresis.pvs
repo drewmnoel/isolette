@@ -1,0 +1,149 @@
+ % Conjectures all prove Prove with grind
+ % You must prove without grind
+ % This will show you how many logical paths there are
+Hysteresis[delta: posreal] : THEORY
+  BEGIN
+    importing Time[delta]
+
+    %        +------------+
+    %        | HYSTERESIS | 
+    % REAL---|XIN1       Q|---BOOL
+    % REAL---|XIN2        | 
+    % REAL---|EPS         | 
+    %        +------------+
+
+    % monitored variables
+    XIN1 : VAR [DTIME -> real] % signal value
+    XIN2 : VAR [DTIME -> real] % set-point
+    EPS  : VAR [DTIME -> real] % hysteresis band size
+
+    % controlled variables
+    BOOL : TYPE+ = subrange(0,1)  % programming type for Boolean
+    Q    : VAR [DTIME -> BOOL]    % alarm
+
+    % =============================================
+    % ST implementation of the HYSTERESIS block
+    % =============================================
+    % FUNCTION_BLOCK HYSTERESIS
+    %     (* Boolean hysteresis on difference *) 
+    %     (* of REAL inputs, XIN1 - XIN2 *)
+    %   VAR_INPUT XIN1, XIN2, EPS : REAL; END_VAR
+    %   VAR_OUTPUT Q : BOOL := 0; END_VAR
+    %   IF Q THEN 
+    %     IF XIN1 < (XIN2 - EPS) THEN 
+    %       Q := 0; 
+    %     END_IF ; 
+    %   ELSIF XIN1 > (XIN2 + EPS) THEN 
+    %     Q := 1 ;
+    %   END_IF ;
+    % END_FUNCTION_BLOCK
+    % =============================================
+    hysteresis_st (XIN1, XIN2, EPS, Q): bool =
+      FORALL (i: DTIME):
+        COND
+           i = 0 -> 
+	     Q(0) = 0,
+	   i > 0 ->
+	     IF Q(i-1) = 1 THEN
+	       IF XIN1(i) < (XIN2(i) - EPS(i)) THEN
+	       	 Q(i) = 0
+	       ELSE
+	         Q(i) = Q(i-1)
+  	       ENDIF
+	     ELSIF XIN1(i) > (XIN2(i) + EPS(i)) THEN
+	       Q(i) = 1
+	     ELSE
+	       Q(i) = Q(i-1)
+	     ENDIF
+        ENDCOND
+
+
+ % environment assumption
+    env (XIN1, XIN2, EPS): bool =
+      FORALL (i: DTIME): EPS(i) > 0
+
+ % Black-box requirements of HYSTERESIS
+    hysteresis_req (XIN1, XIN2, EPS, Q): bool = 
+      env (XIN1, XIN2, EPS) % necessary for the disjointness TCC
+      IMPLIES
+      FORALL (i: DTIME): 
+        COND
+        i = 0 ->
+          Q(0) = 0,
+        i > 0 ->
+          COND
+          % ====================================================
+              XIN1(i) >  (XIN2(i) + EPS(i)) -> Q(i) = 1,
+          % ====================================================
+              XIN1(i) <= (XIN2(i) + EPS(i))
+          AND XIN1(i) >= (XIN2(i) - EPS(i)) -> Q(i) = Q(i - 1),
+          % ====================================================
+              XIN1(i) <  (XIN2(i) - EPS(i)) -> Q(i) = 0
+          % ====================================================
+          ENDCOND
+        ENDCOND
+      
+    correct_hysteresis_st : THEOREM 
+        (env (XIN1, XIN2, EPS)
+         AND
+         hysteresis_st (XIN1, XIN2, EPS, Q))
+        IMPLIES 
+        hysteresis_req(XIN1, XIN2, EPS, Q)
+
+% Using preconditions
+  precondition : TYPE = { precond }
+  PRE (p : bool) : TYPE = { x : precondition | p }
+
+  % requirements of HYSTERESIS using a precondition
+    hysteresis_req_pre_i (XIN1, XIN2, EPS, Q)(i:DTIME)(p:PRE(EPS(i) > 0)): bool = 
+        COND
+        i = 0 ->
+          Q(0) = 0,
+        i > 0 ->
+          COND
+          % ====================================================
+              XIN1(i) >  (XIN2(i) + EPS(i)) -> Q(i) = 1,
+          % ====================================================
+              XIN1(i) <= (XIN2(i) + EPS(i))
+          AND XIN1(i) >= (XIN2(i) - EPS(i)) -> Q(i) = Q(i - 1),
+          % ====================================================
+              XIN1(i) <  (XIN2(i) - EPS(i)) -> Q(i) = 0
+          % ====================================================
+          ENDCOND
+        ENDCOND
+
+  correct_hysteresis_st_pre: THEOREM
+        (env (XIN1, XIN2, EPS)
+         AND
+         hysteresis_st (XIN1, XIN2, EPS, Q))
+        IMPLIES 
+        (FORALL (i:DTIME): hysteresis_req_pre_i(XIN1, XIN2, EPS, Q)(i)(precond))
+
+
+  hysteresis_req_pre (XIN1, XIN2, EPS, Q)(p:PRE(env (XIN1, XIN2, EPS))): bool =
+        (FORALl (i:DTIME):
+        COND
+        i = 0 ->
+          Q(0) = 0,
+        i > 0 ->
+          COND
+          % ====================================================
+              XIN1(i) >  (XIN2(i) + EPS(i)) -> Q(i) = 1,
+          % ====================================================
+              XIN1(i) <= (XIN2(i) + EPS(i))
+          AND XIN1(i) >= (XIN2(i) - EPS(i)) -> Q(i) = Q(i - 1),
+          % ====================================================
+              XIN1(i) <  (XIN2(i) - EPS(i)) -> Q(i) = 0
+          % ====================================================
+          ENDCOND
+        ENDCOND)
+
+  correct_hysteresis_st_pre2: THEOREM
+        (env (XIN1, XIN2, EPS)
+         AND
+         hysteresis_st (XIN1, XIN2, EPS, Q))
+        IMPLIES 
+        hysteresis_req_pre(XIN1, XIN2, EPS, Q)(precond)
+
+
+  END Hysteresis
