@@ -124,7 +124,7 @@ The monitored variables are a subset of those described in \cite{REMH}.\footnote
 \begin{table}[h]
 \begin{tabular}{|l|l|l|l|l|}
 \hline
-\cellcolor[HTML]{EFEFEF}Name & \cellcolor[HTML]{EFEFEF}Type & Range              & \cellcolor[HTML]{EFEFEF}Units & \cellcolor[HTML]{EFEFEF}Physical Interpretation                                       \\ \hline
+\cellcolor[HTML]{EFEFEF}Name & \cellcolor[HTML]{EFEFEF}Type & \cellcolor[HTML]{EFEFEF}Range              & \cellcolor[HTML]{EFEFEF}Units & \cellcolor[HTML]{EFEFEF}Physical Interpretation                                       \\ \hline
 \mv{tm}                      & $\Rl$                        & $68.0 \upto 105.0$       & $\degree{F}$                   & \begin{tabular}[c]{@{}l@{}}actual temperature of Isolette \\ air temperature from sensor\end{tabular} \\ \hline
 \mv{dl}                      & $\intg$                      & $97 \upto 99$      & $\degree{F}$                   & \begin{tabular}[c]{@{}l@{}}desired lower temperature\\ set by operator\end{tabular}   \\ \hline
 \mv{dh}                      & $\intg$                      & $98 \upto 100$      & $\degree{F}$                   & \begin{tabular}[c]{@{}l@{}}desired higher temperature\\ set by operator\end{tabular}  \\ \hline
@@ -155,7 +155,7 @@ The controlled variables are a subset of those described in \cite{REMH}.\footnot
 \cv{td}                      & $\intg$                      & $\{0\} \bunion \{68 \upto 105\}$                                         & $\degree{F}$                  & \begin{tabular}[c]{@{}l@{}}displayed temperature of Isolette\\ (zero when Isolette is off)\end{tabular} \\ \hline
 \cv{al}                      & Enumerated                   & \{off, on\}                                                              &                               & sound alarm to call nurse                                                                               \\ \hline
 \cv{md}                      & Enumerated                   & \begin{tabular}[c]{@{}l@{}}\{off, init, \\ normal, failed\}\end{tabular} &                               & \begin{tabular}[c]{@{}l@{}}mode of Isolette operation\\ (failed if $\mv{st} = invalid$)\end{tabular}    \\ \hline
-\cv{ms}                      & Enumerated                   &                                                                          &                               & messages to display to nurse                                                                            \\ \hline
+\cv{ms}                      & Enumerated                   & \begin{tabular}[c]{@{}l@{}}\{ok\}\end{tabular} &                               & messages to display to nurse                                                                            \\ \hline
 \end{tabular}
 \caption {Controlled Variables}
 \label{tbl:cv}
