@@ -63,8 +63,7 @@ October 29th
 \listoftables
 \newpage
 
-%%%%Rest of your document goes here%%%%%%%%%%%%%%%%%%%
-
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{System Overview}
 
 The System Under Development (SUD) is a computer controller for the thermostat of an Isolette.\footnote{%
@@ -81,6 +80,7 @@ This requirements document is specifically for the control of temperature. The p
 \label{fig:isolette}
 \end{figure}
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Context Diagram}
 
 See Fig. A-1 in \cite{REMH}. The System Under Description (SUD) is a computer \emph{controller} to regulate the temperature of the Isolette. Everything else including the Operator Interface (described in \cite{REMH}) is in the ecosystem (i.e. in the environment of the controller). The monitored variables and controlled variables for the controller are in Table~\ref{table:monitored} and
@@ -97,6 +97,7 @@ Documented in the write-up to this assignment: \texttt{assign1-spec.pdf}.}
 \end{figure}
 %SUD Diagram created using www.draw.io
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Goals}
 
 The high-level goals (G) of the system are:
@@ -109,15 +110,13 @@ The high-level goals (G) of the system are:
 \item G3---The cost of manufacturing the computer controller for the thermostat should be as low as possible.
 \end{mylist}
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Monitored Variables}
 
 \hl{Ensure that the tables are completed.}
 
 The monitored variables are a subset of those described in \cite{REMH}.\footnote{With some change of nomenclature. Monitored variables have an ``m'' prefix.} There is a single status variable \mv{st} that is \emph{invalid} whenever any one of the operator inputs or temperature sensor are in a failed state. Otherwise types and ranges are as in \cite{REMH}.
 
-% Please add the following required packages to your document preamble:
-% \usepackage[table,xcdraw]{xcolor}
-% If you use beamer only pass "xcolor=table" option, i.e. \documentclass[xcolor=table]{beamer}
 \begin{table}[h]
 \begin{tabular}{|l|l|l|l|l|}
 \hline
@@ -134,16 +133,13 @@ The monitored variables are a subset of those described in \cite{REMH}.\footnote
 \label{table:monitored}
 \end{table}
 
-
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Controlled Variables}
 
 \hl{Ensure that the table below is complete.}
 
 The controlled variables are a subset of those described in \cite{REMH}.\footnote{With some change of nomenclature. Controlled variables have a ``c'' prefix.} In addition, there is a mode display \cv{md} and a message display \cv{ms}.\footnote{The mode ``off'' is added to that of Fig.~A-4 in \cite{REMH}, and the mode transitions have been changed.}
 
-% Please add the following required packages to your document preamble:
-% \usepackage[table,xcdraw]{xcolor}
-% If you use beamer only pass "xcolor=table" option, i.e. \documentclass[xcolor=table]{beamer}
 \begin{table}[h]
 \begin{tabular}{|l|l|l|l|l|}
 \hline
@@ -158,10 +154,11 @@ The controlled variables are a subset of those described in \cite{REMH}.\footnot
 \label{tbl:cv}
 \end{table}
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Mode Diagram}
-
 \hl{To Do}. Provide a statechart for the mode-diagram and provide rationale for the statechart.
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{E/R-descriptions}
 
 % The following requirements were provided in isolette-readme.pdf
@@ -199,8 +196,8 @@ The controlled variables are a subset of those described in \cite{REMH}.\footnot
 
 \hl{Include the ENV descriptions provided in the write-up and add the next three most important ENVs}. (You may include the rest in an appendix to this document, if you wish). Provide a rationale for each ENV.
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Abstract variables needed for the Function Table}
-
 \hl{If needed, provide abstract variables here. Otherwise, state that abstract variables are not needed.}
 
 \reqm{REQ}
@@ -213,41 +210,38 @@ The controlled variables are a subset of those described in \cite{REMH}.\footnot
 {?????}
 \label{E1}
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Function Table}
-
-
 \hl{Provide one function table for each control variable} (in Table~\ref{tbl:cv}). Each control variable should have its own sub-section heading.
 
 \subsection{Function Table for heat control: \cv{hc}}
 
 \hl{To be Done for this sub-section and all the others}. Function table for \cv{hc} goes here.
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Validation}
 \hl{To be Done.}
 Proof of completeness and disjointness and validation of the requirements using PVS.
 
 Include the PVS sources in the appendix to this document but summarize the proofs here.
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Use Cases}
-
 See Section A2 of \cite{REMH} for some use cases. The use cases need to be adapted to the revised descriptions of the previous sections of this document.
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Acceptance Tests}
-
 In this section, the use cases have to be converted into precise acceptance tests (using the function table to describe pre/post conditions) to be run when the design and implementation are complete.
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Traceability}
-
 Matrix to show which acceptance tests passed, and which R-descriptions they checked.
 
-
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Glossary}
-
 The definition of important terms is placed in this section. You are not required to complete this.
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \bibliographystyle{plain}
 \bibliography{ref}
 \end{document}
