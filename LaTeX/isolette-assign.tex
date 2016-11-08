@@ -195,19 +195,19 @@ The controlled variables are a subset of those described in \cite{REMH}.\footnot
 \item The nurse turns off the Isolette
 \item The alarm has lasted for 10 seconds, and after 10 seconds or more the alarm conditions are removed. \\
 \end{itemize}}
-{\hl{TODO}}
+{If the Isolette is powered on, the alarm will sound for 10 seconds, or until the alarm conditions no longer exist, whichever is later.}
 \label{R4}
 \textbf{Rationale}: Avoid transient alarms, and only turn off the alarm once the conditions that triggered the alarm have been removed.
 
 \reqm{ENV}
 {The current temperature received from the sensor is a real number in the range 68.0$\degree{F}$ to 105.0$\degree{F}$.\\}
-{\hl{TODO}}
+{The environment assures that the sensor will be in the given range, and it is not required to account for temperatures outside this range.}
 \label{E5}
-\textbf{Rationale}: The sensor has some given range, which allows for restriction of the expected input.
+\textbf{Rationale}: The sensor has some given range due to its nature, which allows for restriction of the expected input.
 
 \reqm{ENV}
 {The desired and alarm temperatures received from the operator are all in increments of 1$\degree{F}$.\\}
-{\hl{TODO}}
+{The inputs for the temperatures will be limited to integers, due to the nature of the environment}
 \label{E6}
 \textbf{Rationale}: The given inputs have some given granularity, imposed requirements on the SUD.
 
