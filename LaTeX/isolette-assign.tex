@@ -166,13 +166,13 @@ The controlled variables are a subset of those described in \cite{REMH}.\footnot
 {The \emph{controller} shall operate in one of four modes: \emph{off}, \emph{init}, \emph{normal} and \emph{fail}.\\}
 {See statechart in Fig.~\ref{fig:sc}.}
 \label{R1}
-\textbf{Rationale}: \hl{TODO}
+\textbf{Rationale}: The controller is either: off, awaiting initial valid inputs, in a valid state, or in an invalid state. These are the only possible states, and the transitions are given in Fig.~\ref{fig:sc}.
 
 \reqm{REQ}
 {In the \emph{normal} mode, the temperature controller shall maintain current temperature inside the Isolette within a set temperature range (the \emph{desired} range).\\}
 {The \emph{desired} temperature range is \emph{m\_dl..m\_dh}. If the current temperature \emph{m\_th} is outside this range, the controller shall turn the heater on or off via the controlled variable \emph{m\_hc} to maintain the desired state.\\}
 \label{R2}
-\textbf{Rationale}: \hl{TODO}
+\textbf{Rationale}: The \emph{desired temperature range} will be set by the nurse to the desired range based on the infant's weight and health. The controller shall maintain the current temperature within this range under normal operation.
 
 \reqm{REQ}
 {In \emph{normal} mode, the controller shall activate an alarm whenever:
@@ -182,7 +182,12 @@ The controlled variables are a subset of those described in \cite{REMH}.\footnot
 \end{itemize}}
 {The alarm temperature range is \emph{m\_al..m\_ah}. Monitored variable \emph{m\_st} shows ``invalid'' when any of the input signals fail.}
 \label{R3}
-\textbf{Rationale}: \hl{TODO}
+\textbf{Rationale}: The following relevant hazard was identified through the safety assessment process:
+\begin{enumerate}
+    \item H1: Prolonged exposure of Infant to unsafe heat or cold;
+    \item \emph{Classification}: catastrophic
+    \item \emph{Probability}: $<10^{-9}$ per hour of operation
+\end{enumerate}
 
 \reqm{REQ}
 {Once the alarm is activated, it becomes deactivated in one of two ways:
@@ -192,19 +197,21 @@ The controlled variables are a subset of those described in \cite{REMH}.\footnot
 \end{itemize}}
 {\hl{TODO}}
 \label{R4}
-\textbf{Rationale}: \hl{TODO}
+\textbf{Rationale}: Avoid transient alarms, and only turn off the alarm once the conditions that triggered the alarm have been removed.
 
 \reqm{ENV}
 {The current temperature received from the sensor is a a real number in the range 68.0$\degree{F}$ to 105.0$\degree{F}$.\\}
 {\hl{TODO}}
 \label{E5}
-\textbf{Rationale}: \hl{TODO}
+\textbf{Rationale}: The sensor has some given range, which allows for restriction of the expected input.
 
 \reqm{ENV}
 {The desired and alarm temperatures received from the operator are all in increments of 1$\degree{F}$.\\}
 {\hl{TODO}}
 \label{E6}
-\textbf{Rationale}: \hl{TODO}
+\textbf{Rationale}: The given inputs have some given granularity, imposed requirements on the SUD.
+
+\hl{TODO: Decide on 3 other E/R descriptions to list}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Abstract variables needed for the Function Table}
