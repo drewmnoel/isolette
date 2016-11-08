@@ -33,5 +33,17 @@ BEGIN
 	c_al: [DTIME->SWITCH]
 	c_md: [DTIME->MODE]
 	c_ms: [DTIME->MSG]
+
+	% Function Tables
+	% Funtion table for modes: c_md
+	% Function table for heat control: c_hc
+	% Function table for alarm: c_al(i)
+	% Function table for display temperature: c_td
+	% Function table for error message: c_ms
+
+	% Environmental Assumption
+
+	% Use Cases
+
 	
 END isolette
