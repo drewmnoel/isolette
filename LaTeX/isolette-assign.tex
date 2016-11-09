@@ -221,7 +221,19 @@ The controlled variables are a subset of those described in \cite{REMH}.\footnot
 \section{Function Table}
 
 \subsection{Function Table for heat control: \cv{hc}}
-\hl{TODO}
+\begin{table}[htb]
+\centering
+\begin{tabular}{ll|l|}
+\cline{3-3}
+                                                      &                                                                                & $c\_hc$      \\ \hline
+\multicolumn{2}{|l|}{$i=0$}                                                                                                              & off        \\ \hline
+\multicolumn{1}{|l|}{\multirow{3}{*}{$i > 0$}} & $m\_tm(i) > m\_dh(i)$                                                 & off        \\ \cline{2-3}
+\multicolumn{1}{|l|}{}                                & $m\_tm(i) < m\_dl(i)$                                                    & on         \\ \cline{2-3}
+\multicolumn{1}{|l|}{}                                & $m\_tm(i) \le m\_dh(i) \wedge  m\_tm(i) \ge m\_dl(i)$ & $c\_hc(i-1)$ \\ \hline
+\end{tabular}
+\caption{Function Table for heat control: \cv{hc}}
+\end{table}
+
 \subsection{Function Table for displayed temperature: \cv{td}}
 \hl{TODO}
 \subsection{Function Table for alarm: \cv{al}}
