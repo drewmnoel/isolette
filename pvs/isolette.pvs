@@ -105,11 +105,10 @@ BEGIN
 	  	      c_td(i) = 0,
 	  	    m_sw(i) = on ->
 	  	      COND
-  	            m_st(i) = invalid ->
-  	              c_td(i) = 0,
-  	            m_st(i) = valid ->
-  	            %Need to convert to NAT***
-  	              c_td(i) = m_tm(i)
+	            m_st(i) = invalid ->
+	              c_td(i) = 0,
+	            m_st(i) = valid ->
+	              c_td(i) = floor(m_tm(i) + 0.5)
 	  	      ENDCOND
 	  	  ENDCOND
 	  ENDCOND
