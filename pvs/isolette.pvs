@@ -6,10 +6,10 @@ BEGIN
 	% Monitored Variable Types: The name for the first set corresponds to
 	%		the variable name and it's type (ie. temperature)
 	TM_TEMP: TYPE = {x: real |  68.0 <= x AND x <= 105.0}
-	DL_TEMP: TYPE = {y: nat | 97 >= y AND y <= 99}
-	DH_TEMP: TYPE = {y: nat | 98 >= y AND y <= 100}
-	AL_TEMP: TYPE = {y: nat | 93 >= y AND y <= 98}
-	AH_TEMP: TYPE = {y: nat | 99 >= y AND y <= 103}
+	DL_TEMP: TYPE = {y: nat | 97 <= y AND y <= 99}
+	DH_TEMP: TYPE = {y: nat | 98 <= y AND y <= 100}
+	AL_TEMP: TYPE = {y: nat | 93 <= y AND y <= 98}
+	AH_TEMP: TYPE = {y: nat | 99 <= y AND y <= 103}
 	SENSOR: TYPE = {valid, invalid}
 	SWITCH: TYPE = {on, off}
 
