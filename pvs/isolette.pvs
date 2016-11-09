@@ -11,7 +11,6 @@ BEGIN
 	AL_TEMP: TYPE = {y: nat | 93 <= y AND y <= 98}
 	AH_TEMP: TYPE = {y: nat | 99 <= y AND y <= 103}
 	SENSOR: TYPE = {valid, invalid}
-	SWITCH: TYPE = {on, off}
 
 	% Controlled Variables Types
 	DISP_TEMP: TYPE = {y: nat | y = 0 OR (68 <= y AND y <= 105)}
@@ -25,12 +24,12 @@ BEGIN
 	m_al: VAR [DTIME->AL_TEMP] %desired low alarm temp
 	m_ah: VAR [DTIME->AH_TEMP] %desired high alarm temp
 	m_st: VAR [DTIME->SENSOR] %status of temp sensor
-	m_sw: VAR [DTIME->SWITCH] %switch set by operator
+	m_sw: VAR [DTIME->BOOL] %switch set by operator
 
 	% Controlled Variables:
-	c_hc: VAR [DTIME->SWITCH] %heat control
+	c_hc: VAR [DTIME->BOOL] %heat control
 	c_td: VAR [DTIME->DISP_TEMP] %displayed isolette temp
-	c_al: VAR [DTIME->SWITCH] %sound alarm
+	c_al: VAR [DTIME->BOOL] %sound alarm
 	c_md: VAR [DTIME->MODE] %mode of isolette
 	c_ms: VAR [DTIME->MSG] %message to display
 
