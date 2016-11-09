@@ -74,9 +74,23 @@ BEGIN
 	      ENDCOND
 	  ENDCOND
 
-
-
 	% Function table for heat control: c_hc
+	heater_ft(c_hc, m_dl, m_dh, m_tm): bool =
+	  FORALL (i:DTIME):
+	  COND
+	    i = 0 ->
+	      c_hc(i) = off,
+	    i > 0 ->
+	      COND
+	        m_tm(i) > m_dh(i) ->
+	          c_hc(i) = off,
+	        m_tm(i) < m_dl(i) ->
+	          c_hc(i) = on,
+	        m_tm(i) >= m_dl(i) AND m_tm(i) <= m_dh(i) ->
+	          c_hc(i) = c_hc(i-1)
+	      ENDCOND
+	  ENDCOND
+
 	% Function table for alarm: c_al(i)
 	% Function table for display temperature: c_td
 	% Function table for error message: c_ms
@@ -85,5 +99,4 @@ BEGIN
 
 	% Use Cases
 
-	
 END isolette
