@@ -16,7 +16,7 @@ BEGIN
 	% Controlled Variables Types
 	DISP_TEMP: TYPE = {y: nat | y = 0 OR (68 <= y AND y <= 105)}
 	MODE: TYPE = {off, init, normal, failed}
-	MSG: TYPE = {ok, invalid_alarm_high, invalid_alarm_low, alarm_triggered}
+	MSG: TYPE = {ok, invalid_sensor, invalid_alarm_high, invalid_alarm_low, alarm_triggered}
 
 	% Monitored Variables
 	m_tm: VAR [DTIME->TM_TEMP] %temp monitored
@@ -93,6 +93,7 @@ BEGIN
 
 	% Function table for alarm: c_al(i)
 	% Function table for display temperature: c_td
+
 	% Function table for error message: c_ms
 
 	% Environmental Assumption
