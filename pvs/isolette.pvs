@@ -19,20 +19,20 @@ BEGIN
 	MSG: TYPE = {ok, invalid_alarm_high, invalid_alarm_low, alarm_triggered}
 
 	% Monitored Variables
-	m_tm: [DTIME->TM_TEMP] %temp monitored
-	m_dl: [DTIME->DL_TEMP] %desired low temp
-	m_dh: [DTIME->DH_TEMP] %desired high temp
-	m_al: [DTIME->AL_TEMP] %desired low alarm temp
-	m_ah: [DTIME->AH_TEMP] %desired high alarm temp
-	m_st: [DTIME->SENSOR] %status of temp sensor
-	m_sw: [DTIME->SWITCH] %switch set by operator
+	m_tm: VAR [DTIME->TM_TEMP] %temp monitored
+	m_dl: VAR [DTIME->DL_TEMP] %desired low temp
+	m_dh: VAR [DTIME->DH_TEMP] %desired high temp
+	m_al: VAR [DTIME->AL_TEMP] %desired low alarm temp
+	m_ah: VAR [DTIME->AH_TEMP] %desired high alarm temp
+	m_st: VAR [DTIME->SENSOR] %status of temp sensor
+	m_sw: VAR [DTIME->SWITCH] %switch set by operator
 
 	% Controlled Variables:
-	c_hc: [DTIME->SWITCH] %heat control
-	c_td: [DTIME->DISP_TEMP] %displayed isolette temp
-	c_al: [DTIME->SWITCH] %sound alarm
-	c_md: [DTIME->MODE] %mode of isolette
-	c_ms: [DTIME->MSG] %message to display
+	c_hc: VAR [DTIME->SWITCH] %heat control
+	c_td: VAR [DTIME->DISP_TEMP] %displayed isolette temp
+	c_al: VAR [DTIME->SWITCH] %sound alarm
+	c_md: VAR [DTIME->MODE] %mode of isolette
+	c_ms: VAR [DTIME->MSG] %message to display
 
 	% Function Tables
 	% Funtion table for modes: c_md
@@ -53,22 +53,22 @@ BEGIN
 	          COND
 	            m_st(i) = valid AND m_dl(i) <= m_tm(i) AND m_tm(i) <= m_dh(i) AND m_al(i) < m_dl(i) AND m_dl(i) < m_dh(i) AND m_dh(i) < m_ah(i) ->
 	              c_md(i) = normal,
-	            NOT m_st(i) = valid AND m_dl(i) <= m_tm(i) AND m_tm(i) <= m_dh(i) AND m_al(i) < m_dl(i) AND m_dl(i) < m_dh(i) AND m_dh(i) < m_ah(i) ->
-	              init
+	            NOT (m_st(i) = valid AND m_dl(i) <= m_tm(i) AND m_tm(i) <= m_dh(i) AND m_al(i) < m_dl(i) AND m_dl(i) < m_dh(i) AND m_dh(i) < m_ah(i)) ->
+	              c_md(i) = init
 	          ENDCOND,
 	        c_md(i-1) = normal ->
 	          COND
 	            m_st(i) = invalid ->
-	              c_md(i) = fail,
+	              c_md(i) = failed,
 	            m_st(i) = valid ->
-	              c_md(i) = normal,
+	              c_md(i) = normal
 	          ENDCOND,
-	        c_md(i-1) = fail ->
+	        c_md(i-1) = failed ->
 	          COND
 	            m_st(i) = valid ->
 	              c_md(i) = normal,
 	            m_st(i) = invalid ->
-	              c_md(i) = fail,
+	              c_md(i) = failed
 	          ENDCOND
 	        ENDCOND
 	      ENDCOND
