@@ -42,9 +42,9 @@ BEGIN
 	      c_md(i) = off,
 	    i > 0 ->
 	      COND
-	      m_sw(i) = off ->
+	      m_sw(i) = false ->
 	        c_md(i) = off,
-	      m_sw(i) = on ->
+	      m_sw(i) = true ->
 	        COND
 	        c_md(i-1) = off ->
 	          c_md(i) = init,
@@ -78,13 +78,13 @@ BEGIN
 	  FORALL (i:DTIME):
 	  COND
 	    i = 0 ->
-	      c_hc(i) = off,
+	      c_hc(i) = false,
 	    i > 0 ->
 	      COND
 	        m_tm(i) > m_dh(i) ->
-	          c_hc(i) = off,
+	          c_hc(i) = false,
 	        m_tm(i) < m_dl(i) ->
-	          c_hc(i) = on,
+	          c_hc(i) = true,
 	        m_tm(i) >= m_dl(i) AND m_tm(i) <= m_dh(i) ->
 	          c_hc(i) = c_hc(i-1)
 	      ENDCOND
@@ -96,20 +96,20 @@ BEGIN
 	dispTemp_ft(c_td, m_sw, m_st, m_tm): bool =
 	  FORALL (i:DTIME):
 	  COND
-	  	i = 0 ->
-	  	  c_td(i) = 0,
-	  	i > 0 ->
-	  	  COND
-	  	    m_sw(i) = off ->
-	  	      c_td(i) = 0,
-	  	    m_sw(i) = on ->
-	  	      COND
+	    i = 0 ->
+	      c_td(i) = 0,
+	    i > 0 ->
+	      COND
+	        m_sw(i) = false ->
+	          c_td(i) = 0,
+	        m_sw(i) = true ->
+	          COND
 	            m_st(i) = invalid ->
 	              c_td(i) = 0,
 	            m_st(i) = valid ->
 	              c_td(i) = floor(m_tm(i) + 0.5)
-	  	      ENDCOND
-	  	  ENDCOND
+	          ENDCOND
+	      ENDCOND
 	  ENDCOND
 
 
