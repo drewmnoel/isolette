@@ -198,3 +198,8 @@ TSWLatexianTemp*
 /auto/*
 
 LaTeX/isolette-assign.pdf
+
+pvsbin/
+.pvscontext
+*~
+orphaned-proofs.prf
