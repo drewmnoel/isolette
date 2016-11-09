@@ -237,10 +237,10 @@ The controlled variables are a subset of those described in \cite{REMH}.\footnot
 \multicolumn{1}{|l|}{}                                  & \multicolumn{1}{l|}{\multirow{7}{*}{$m\_sw =$ on}} & \multicolumn{2}{l|}{$c\_md(i-1) =$ off}                                          & init   \\ \cline{3-5}
 \multicolumn{1}{|l|}{}                                  & \multicolumn{1}{l|}{}                            & \multicolumn{1}{l|}{\multirow{2}{*}{$c\_md(i-1) =$ init}}   & $init\_cond$ \footnotemark        & normal \\ \cline{4-5}
 \multicolumn{1}{|l|}{}                                  & \multicolumn{1}{l|}{}                            & \multicolumn{1}{l|}{}                                     & $\neg init\_cond$     & init   \\ \cline{3-5}
-\multicolumn{1}{|l|}{}                                  & \multicolumn{1}{l|}{}                            & \multicolumn{1}{l|}{\multirow{2}{*}{$c\_md(i-1) =$ normal}} & $m\_st(i) =$ invalid & fail   \\ \cline{4-5}
+\multicolumn{1}{|l|}{}                                  & \multicolumn{1}{l|}{}                            & \multicolumn{1}{l|}{\multirow{2}{*}{$c\_md(i-1) =$ normal}} & $m\_st(i) =$ invalid & failed   \\ \cline{4-5}
 \multicolumn{1}{|l|}{}                                  & \multicolumn{1}{l|}{}                            & \multicolumn{1}{l|}{}                                     & $m\_st(i) =$ valid   & normal \\ \cline{3-5}
-\multicolumn{1}{|l|}{}                                  & \multicolumn{1}{l|}{}                            & \multicolumn{1}{l|}{\multirow{2}{*}{$c\_md(i-1) =$ fail}}   & $m\_st(i) =$ valid   & normal \\ \cline{4-5}
-\multicolumn{1}{|l|}{}                                  & \multicolumn{1}{l|}{}                            & \multicolumn{1}{l|}{}                                     & $m\_st(i) =$ invalid & fail   \\ \hline
+\multicolumn{1}{|l|}{}                                  & \multicolumn{1}{l|}{}                            & \multicolumn{1}{l|}{\multirow{2}{*}{$c\_md(i-1) =$ failed}}   & $m\_st(i) =$ valid   & normal \\ \cline{4-5}
+\multicolumn{1}{|l|}{}                                  & \multicolumn{1}{l|}{}                            & \multicolumn{1}{l|}{}                                     & $m\_st(i) =$ invalid & failed   \\ \hline
 \end{tabular}
 \caption{Function Table for Isolette mode: \cv{md}}
 \end{table}
