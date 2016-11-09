@@ -213,16 +213,10 @@ The controlled variables are a subset of those described in \cite{REMH}.\footnot
 \section{Abstract variables needed for the Function Table}
 \hl{If needed, provide abstract variables here. Otherwise, state that abstract variables are not needed.}
 
-\reqm{REQ}
-{The \emph{controller} shall operate in one of four modes: \emph{off}, \emph{init}, \emph{normal} and \emph{fail}.\\}
-{See statechart in Fig.~\ref{fig:sc}.}
-\label{R1}
-
-\reqm{ENV}
-{The current temperature received from the sensor is a real number in the range $68.0$ to $105.0 \degree{F}$.\\}
-{?????}
-\label{E1}
-
+\begin{enumerate}
+    \item $init\_cond = m\_st(i) = valid \wedge m\_dl(i) <= m\_tm(i) \wedge m\_tm(i) <= m\_dh(i) \wedge m\_al(i) < m\_dl(i) \wedge m\_dl(i) < m\_dh(i) \wedge m\_dh(i) < m\_ah(i)$
+    \label{eq:initcond}
+\end{enumerate}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Function Table}
 
@@ -233,7 +227,25 @@ The controlled variables are a subset of those described in \cite{REMH}.\footnot
 \subsection{Function Table for alarm: \cv{al}}
 \hl{TODO}
 \subsection{Function Table for Isolette mode: \cv{md}}
-\hl{TODO}
+\begin{table}[htb]
+\centering
+\begin{tabular}{llll|l|}
+\cline{5-5}
+                                                        &                                                  &                                                           &                    & c\_md  \\ \hline
+\multicolumn{4}{|l|}{$i = 0$}                                                                                                                                                                 & off    \\ \hline
+\multicolumn{1}{|l|}{\multirow{8}{*}{$i > 0$}} & \multicolumn{3}{l|}{$m\_sw =$ off}                                                                                                  & off    \\ \cline{2-5}
+\multicolumn{1}{|l|}{}                                  & \multicolumn{1}{l|}{\multirow{7}{*}{$m\_sw =$ on}} & \multicolumn{2}{l|}{$c\_md(i-1) =$ off}                                          & init   \\ \cline{3-5}
+\multicolumn{1}{|l|}{}                                  & \multicolumn{1}{l|}{}                            & \multicolumn{1}{l|}{\multirow{2}{*}{$c\_md(i-1) =$ init}}   & $init\_cond$ \footnotemark        & normal \\ \cline{4-5}
+\multicolumn{1}{|l|}{}                                  & \multicolumn{1}{l|}{}                            & \multicolumn{1}{l|}{}                                     & $\neg init\_cond$     & init   \\ \cline{3-5}
+\multicolumn{1}{|l|}{}                                  & \multicolumn{1}{l|}{}                            & \multicolumn{1}{l|}{\multirow{2}{*}{$c\_md(i-1) =$ normal}} & $m\_st(i) =$ invalid & fail   \\ \cline{4-5}
+\multicolumn{1}{|l|}{}                                  & \multicolumn{1}{l|}{}                            & \multicolumn{1}{l|}{}                                     & $m\_st(i) =$ valid   & normal \\ \cline{3-5}
+\multicolumn{1}{|l|}{}                                  & \multicolumn{1}{l|}{}                            & \multicolumn{1}{l|}{\multirow{2}{*}{$c\_md(i-1) =$ fail}}   & $m\_st(i) =$ valid   & normal \\ \cline{4-5}
+\multicolumn{1}{|l|}{}                                  & \multicolumn{1}{l|}{}                            & \multicolumn{1}{l|}{}                                     & $m\_st(i) =$ invalid & fail   \\ \hline
+\end{tabular}
+\caption{Function Table for Isolette mode: \cv{md}}
+\end{table}
+\footnotetext{Defined in Abstract Variable \ref{eq:initcond}}
+
 \subsection{Function Table for displayed message: \cv{ms}}
 \hl{TODO}
 
