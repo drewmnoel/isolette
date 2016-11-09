@@ -235,7 +235,20 @@ The controlled variables are a subset of those described in \cite{REMH}.\footnot
 \end{table}
 
 \subsection{Function Table for displayed temperature: \cv{td}}
-\hl{TODO}
+\begin{table}[]
+\centering
+\label{my-label}
+\begin{tabular}{lll|l|}
+\cline{4-4}
+                                                        &                                                     &                    & c\_td            \\ \hline
+\multicolumn{3}{|l|}{i = 0}                                                                                                        & 0                \\ \hline
+\multicolumn{1}{|l|}{\multirow{3}{*}{i \textgreater 0}} & \multicolumn{2}{l|}{m\_sw(i) = off}                                      & 0                \\ \cline{2-4} 
+\multicolumn{1}{|l|}{}                                  & \multicolumn{1}{l|}{\multirow{2}{*}{m\_sw(i) = on}} & m\_st(i) = invalid & 0                \\ \cline{3-4} 
+\multicolumn{1}{|l|}{}                                  & \multicolumn{1}{l|}{}                               & m\_st(i) = valid   & (NAT) (m\_tm(i)) \\ \hline
+\end{tabular}
+\caption{Function Table for displayed temperature: \cv{td}}
+\end{table}
+
 \subsection{Function Table for alarm: \cv{al}}
 \hl{TODO}
 \subsection{Function Table for Isolette mode: \cv{md}}
