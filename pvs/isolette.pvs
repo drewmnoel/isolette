@@ -92,7 +92,28 @@ BEGIN
 	  ENDCOND
 
 	% Function table for alarm: c_al(i)
+
 	% Function table for display temperature: c_td
+	dispTemp_ft(c_td, m_sw, m_st, m_tm): bool =
+	  FORALL (i:DTIME):
+	  COND
+	  	i = 0 ->
+	  	  c_td(i) = 0,
+	  	i > 0 ->
+	  	  COND
+	  	    m_sw(i) = off ->
+	  	      c_td(i) = 0,
+	  	    m_sw(i) = on ->
+	  	      COND
+  	            m_st(i) = invalid ->
+  	              c_td(i) = 0,
+  	            m_st(i) = valid ->
+  	            %Need to convert to NAT***
+  	              c_td(i) = m_tm(i)
+	  	      ENDCOND
+	  	  ENDCOND
+	  ENDCOND
+
 
 	% Function table for error message: c_ms
 
