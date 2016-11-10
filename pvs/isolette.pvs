@@ -86,27 +86,25 @@ BEGIN
 	  ENDCOND
 
 	% Function table for heat control: c_hc
-	heater_ft(c_hc, m_dl, m_dh, m_tm): bool =
+	heater_ft(c_hc, c_md, m_dl, m_dh, m_tm): bool =
 	  FORALL (i:DTIME):
 	  COND
 	    i = 0 ->
 	      c_hc(i) = false,
 	    i > 0 ->
 	      COND
-	        c_md(i) = off ->
-	          c_hc(i) = false,
-	        c_md(i) /= off ->
-	          COND
-		        NOT overlap?(m_dl(i), m_dh(i)) -> COND
-		          m_tm(i) > m_dh(i) ->
-		            c_hc(i) = false,
-		          m_tm(i) < m_dl(i) ->
-		            c_hc(i) = true,
-		          m_tm(i) >= m_dl(i) AND m_tm(i) <= m_dh(i) ->
-		            c_hc(i) = c_hc(i-1)
-		        ENDCOND,
-		        overlap?(m_dl(i), m_dh(i)) -> c_hc(i) = c_hc(i-1)
-		      ENDCOND
+	        c_md(i) = off -> c_hc(i) = false,
+	        c_md(i) /= off -> COND
+	          NOT overlap?(m_dl(i), m_dh(i)) -> COND
+	            m_tm(i) > m_dh(i) ->
+	              c_hc(i) = false,
+	            m_tm(i) < m_dl(i) ->
+	              c_hc(i) = true,
+	            m_tm(i) >= m_dl(i) AND m_tm(i) <= m_dh(i) ->
+	              c_hc(i) = c_hc(i-1)
+	          ENDCOND,
+	          overlap?(m_dl(i), m_dh(i)) -> c_hc(i) = c_hc(i-1)
+	        ENDCOND
 	      ENDCOND
 	  ENDCOND
 
@@ -176,7 +174,7 @@ BEGIN
 	% Master FT
 	isolette_ft(m_tm, m_dl, m_dh, m_al, m_ah, m_st, m_sw, eps, c_hc, c_td, c_al, c_md, c_ms): bool =
 	  modes_ft(c_md, m_sw, m_st, m_dl, m_tm, m_dh, m_al, m_ah) AND
-	  heater_ft(c_hc, m_dl, m_dh, m_tm) AND
+	  heater_ft(c_hc, c_md, m_dl, m_dh, m_tm) AND
 	  alarm_ft(c_al, m_al, eps, m_ah, m_tm) AND
 	  dispTemp_ft(c_td, m_sw, m_st, m_tm) AND
 	  msg_ft(c_ms, c_al, eps, m_tm, m_dl, m_dh, m_al, m_ah, m_st)
@@ -216,54 +214,57 @@ BEGIN
 	  m_tm(5) < m_dl(5) - eps(5) AND
 	  m_dh(2) > m_dl(2) AND
 	  m_dh(3) = m_dh(2) AND m_dh(3) = m_dh(4) AND m_dh(5) = m_dh(4) AND
+	  m_sw(2) = 1 AND m_sw(3) = 1 AND m_sw(4) = 1 AND m_sw(5) = 1 AND
+	  m_st(2) = valid AND m_st(3) = m_st(2) AND m_st(4) = m_st(3) AND m_st(5) = m_st(4) AND
 	  NOT overlap?(m_dl(4), m_dh(4)) AND NOT overlap?(m_dl(5), m_dh(5))
 	  IMPLIES
 	  c_hc(4) = 0 AND c_hc(5) = 1
 
 	% Acceptance tests
 	t1: CONJECTURE
-	  FORALL (i:DTIME): isolette_ft(m_tm, m_dl, m_dh, m_al, m_ah, m_st, m_sw, eps, c_hc, c_td, c_al, c_md, c_ms)
+	  FORALL (i:DTIME): isolette_ft(m_tm, m_dl, m_dh, m_al, m_ah, m_st, m_sw, eps, c_hc, c_td, c_al, c_md, c_ms) AND i > 0
 	  IMPLIES
 	  (m_sw(i) = false IFF c_md(i) = off)
 
 	t2: CONJECTURE
-	  FORALL (i:DTIME): isolette_ft(m_tm, m_dl, m_dh, m_al, m_ah, m_st, m_sw, eps, c_hc, c_td, c_al, c_md, c_ms)
+	  FORALL (i:DTIME): isolette_ft(m_tm, m_dl, m_dh, m_al, m_ah, m_st, m_sw, eps, c_hc, c_td, c_al, c_md, c_ms) AND i > 0
 	  IMPLIES
 	  (c_md(i) = init IMPLIES m_sw(i) = true)
 
 	t3: CONJECTURE
-	  FORALL (i:DTIME): isolette_ft(m_tm, m_dl, m_dh, m_al, m_ah, m_st, m_sw, eps, c_hc, c_td, c_al, c_md, c_ms)
+	  FORALL (i:DTIME): isolette_ft(m_tm, m_dl, m_dh, m_al, m_ah, m_st, m_sw, eps, c_hc, c_td, c_al, c_md, c_ms) AND i > 0
 	  IMPLIES
 	  (c_md(i) = failed IMPLIES m_st(i) = invalid)
 
 	t4: CONJECTURE
-	  FORALL (i:DTIME): isolette_ft(m_tm, m_dl, m_dh, m_al, m_ah, m_st, m_sw, eps, c_hc, c_td, c_al, c_md, c_ms)
+	  FORALL (i:DTIME): isolette_ft(m_tm, m_dl, m_dh, m_al, m_ah, m_st, m_sw, eps, c_hc, c_td, c_al, c_md, c_ms) AND i > 0
+	  AND c_al(i) = 0
 	  IMPLIES
-	  (c_md(i) = normal IMPLIES m_dl(i) <= m_tm(i) AND m_tm(i) <= m_dh(i))
+	  (c_al(i+1) = 0 IMPLIES m_dl(i+1) < m_tm(i+1) + eps(i+1) AND m_tm(i+1) < m_dh(i+1) - eps(i+1))
 
 	t5: CONJECTURE
-	  FORALL (i:DTIME): isolette_ft(m_tm, m_dl, m_dh, m_al, m_ah, m_st, m_sw, eps, c_hc, c_td, c_al, c_md, c_ms)
+	  FORALL (i:DTIME): isolette_ft(m_tm, m_dl, m_dh, m_al, m_ah, m_st, m_sw, eps, c_hc, c_td, c_al, c_md, c_ms) AND i > 0
 	  IMPLIES
 	  (c_md(i) = normal AND (m_tm(i) <= m_al(i) OR m_ah(i) <= m_tm(i)) IMPLIES c_al(i) = true)
 
 	t6: CONJECTURE
-	  FORALL (i:DTIME): isolette_ft(m_tm, m_dl, m_dh, m_al, m_ah, m_st, m_sw, eps, c_hc, c_td, c_al, c_md, c_ms)
+	  FORALL (i:DTIME): isolette_ft(m_tm, m_dl, m_dh, m_al, m_ah, m_st, m_sw, eps, c_hc, c_td, c_al, c_md, c_ms) AND i > 10
 	  IMPLIES
-	  (held_for(c_al, 10)(i-10) IMPLIES NOT c_al(i))
+	  (held_for(c_al, 10)(i-10) AND NOT c_ms(i) = alarm_triggered IMPLIES NOT c_al(i))
 
 	t7: CONJECTURE
-	  FORALL (i:DTIME): isolette_ft(m_tm, m_dl, m_dh, m_al, m_ah, m_st, m_sw, eps, c_hc, c_td, c_al, c_md, c_ms)
+	  FORALL (i:DTIME): isolette_ft(m_tm, m_dl, m_dh, m_al, m_ah, m_st, m_sw, eps, c_hc, c_td, c_al, c_md, c_ms) AND i > 0
 	  IMPLIES
 	  (c_al(i) IMPLIES c_ms(i) = alarm_triggered)
 
 	t8: CONJECTURE
-	  FORALL (i:DTIME): isolette_ft(m_tm, m_dl, m_dh, m_al, m_ah, m_st, m_sw, eps, c_hc, c_td, c_al, c_md, c_ms)
+	  FORALL (i:DTIME): isolette_ft(m_tm, m_dl, m_dh, m_al, m_ah, m_st, m_sw, eps, c_hc, c_td, c_al, c_md, c_ms) AND i > 0
 	  IMPLIES
 	  (NOT (c_al(i) OR c_hc(i) = 1 OR c_md(i) /= normal) IMPLIES c_ms(i) = ok)
 
 	t9: CONJECTURE
-	  FORALL (i:DTIME): isolette_ft(m_tm, m_dl, m_dh, m_al, m_ah, m_st, m_sw, eps, c_hc, c_td, c_al, c_md, c_ms)
+	  FORALL (i:DTIME): isolette_ft(m_tm, m_dl, m_dh, m_al, m_ah, m_st, m_sw, eps, c_hc, c_td, c_al, c_md, c_ms) AND i > 0
 	  IMPLIES
-	  (m_sw(i) = false IMPLIES NOT c_ms(i) = ok)
+	  (m_sw(i) = false IMPLIES c_hc(i) = false)
 
 END isolette
