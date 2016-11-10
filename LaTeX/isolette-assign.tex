@@ -303,6 +303,7 @@ The statechart can be found below:
 \centering
 \label{my-label}
 \begin{tabular}{llll|l|}
+<<<<<<< HEAD
 \cline{5-5}
                                                    &                                       &                                                               &                               & $c\_al$                 \\ \hline
 \multicolumn{4}{|l|}{NOT $cond\_alarm$}                                                                                                                                                       &  $c\_al(i) = c\_al(i-1)$ \\ \hline
@@ -311,6 +312,14 @@ The statechart can be found below:
 \multicolumn{1}{|l|}{}                             & \multicolumn{1}{l|}{}                 & \multicolumn{1}{l|}{\multirow{2}{*}{$sound\_alarm(i) =$ false}} & $held\_for(c\_al, 10)(i-1)$     & $\neg c\_al(i)$          \\ \cline{2-2} \cline{4-5}
 \multicolumn{1}{|l|}{}                             & \multicolumn{1}{l|}{}                 & \multicolumn{1}{l|}{}                                         & $\neg held\_for(c\_al, 10)(i-1)$ & $c\_al(i) = c\_al(i-1)$ \\ \hline
 
+=======
+\cline{5-5}                                       &                                       &                                                               &                               & c\_al                 \\ \hline
+\multicolumn{5}{|l|}{NOT cond\_alarm \footnotemark                                                                                                                                                                             } \\ \hline
+\multicolumn{1}{|l|}{\multirow{4}{*}{cond\_alarm}} & \multicolumn{1}{l|}{i = 0}            & \multicolumn{1}{l|}{}                                         &                               & c\_al(i) = 0          \\ \cline{2-5}
+\multicolumn{1}{|l|}{}                             & \multicolumn{1}{l|}{i \textgreater 0} & \multicolumn{2}{l|}{sound\_alarm(i) = true}                                                   & c\_al(i)              \\ \cline{2-5}
+\multicolumn{1}{|l|}{}                             & \multicolumn{1}{l|}{}                 & \multicolumn{1}{l|}{\multirow{2}{*}{sound\_alarm(i) = false}} & held\_for(c\_al, 10)(i-1)     & NOT c\_al(i)          \\ \cline{2-2} \cline{4-5}
+\multicolumn{1}{|l|}{}                             & \multicolumn{1}{l|}{}                 & \multicolumn{1}{l|}{}                                         & NOT held\_for(c\_al, 10)(i-1) & c\_al(i) = c\_al(i-1) \\ \hline
+>>>>>>> bfd950c3665d0399693f9005e543a6a2161753e9
 \end{tabular}
 \caption{Function Table for alarm: \cv{al}}
 \end{table}
@@ -344,9 +353,15 @@ The statechart can be found below:
 \cline{5-5}
                                                         &                                                        &                                                        &                                              & c\_ms                  \\ \hline
 \multicolumn{4}{|l|}{i = 0}                                                                                                                                                                                              & ok                     \\ \hline
+<<<<<<< HEAD
 \multicolumn{1}{|l|}{\multirow{4}{*}{i \textgreater 0}} & \multicolumn{3}{l|}{c\_al(i) = true}                                                                                                                           & alarm\_triggered       \\ \cline{2-5} 
 \multicolumn{1}{|l|}{}                                  & \multicolumn{1}{l|}{\multirow{3}{*}{c\_al(i) = false}} & \multicolumn{2}{l|}{m\_st(i) = invalid}                                                               & invalid\_sensor        \\ \cline{3-5} 
 \multicolumn{1}{|l|}{}                                  & \multicolumn{1}{l|}{}                                  & \multicolumn{1}{l|}{\multirow{2}{*}{m\_st(i) = valid}} & temp\_out\_of\_bounds  \footnotemark & invalid\_alarm\_limits \\ \cline{4-5} 
+=======
+\multicolumn{1}{|l|}{\multirow{4}{*}{i \textgreater 0}} & \multicolumn{3}{l|}{c\_al(i) = true}                                                                                                                           & alarm\_triggered       \\ \cline{2-5}
+\multicolumn{1}{|l|}{}                                  & \multicolumn{1}{l|}{\multirow{3}{*}{c\_al(i) = false}} & \multicolumn{2}{l|}{m\_st(i) = invalid}                                                               & invalid\_sensor        \\ \cline{3-5}
+\multicolumn{1}{|l|}{}                                  & \multicolumn{1}{l|}{}                                  & \multicolumn{1}{l|}{\multirow{2}{*}{m\_st(i) = valid}} & temp\_out\_of\_bounds  \footnotemark & invalid\_alarm\_limits \\ \cline{4-5}
+>>>>>>> bfd950c3665d0399693f9005e543a6a2161753e9
 \multicolumn{1}{|l|}{}                                  & \multicolumn{1}{l|}{}                                  & \multicolumn{1}{l|}{}                                  & temp\_in\_proper\_range \footnotemark   & ok                     \\ \hline
 \end{tabular}
 \caption{Function Table for displayed message: \cv{ms}}
