@@ -175,10 +175,15 @@ BEGIN
 	  m_tm(0) = 68 AND
 	  m_sw(1) = true AND   % Nurse turns on the isolette
 	  m_tm(1) = 68 AND
+	  m_st(2) = valid AND
 	  m_dl(2) = 97 AND     % Nurse configures the isolette
+	  m_al(2) = 96 AND
 	  m_dh(2) = 100 AND    % Nurse waits for current temperature to reach range
-	  m_tm(2) = 75 AND
+	  m_ah(2) = 101 AND
+	  m_tm(2) = 99 AND
+	  m_sw(2) = m_sw(1) AND
 	  m_tm(3) = 98 AND
+	  m_sw(3) = m_sw(2) AND
 	  m_sw(4) = false      % Nurse turns off the isolette
 	  IMPLIES
 	  c_md(0) = off AND
