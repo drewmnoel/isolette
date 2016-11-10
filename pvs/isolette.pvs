@@ -1,5 +1,6 @@
-isolette[delta: posreal] : THEORY
+isolette: THEORY
 BEGIN
+	delta: posreal = 1.0
 	importing Time[delta]
 	importing Limits_Alarm[delta]
 
@@ -31,7 +32,7 @@ BEGIN
 	% Controlled Variables:
 	c_hc: VAR [DTIME->BOOL] %heat control
 	c_td: VAR [DTIME->DISP_TEMP] %displayed isolette temp
-	c_al: VAR [DTIME->BOOL] %sound alarm
+	c_al: VAR [DTIME->bool] %sound alarm
 	c_md: VAR [DTIME->MODE] %mode of isolette
 	c_ms: VAR [DTIME->MSG] %message to display
 
@@ -97,8 +98,23 @@ BEGIN
 
 	% Function table for alarm: c_al(i)
 	alarm_ft(c_al, m_al, eps, m_ah, m_tm): bool =
-	  EXISTS(c_al_high:[DTIME->BOOL], c_al_low:[DTIME->BOOL]):
-	    limits_alarm_req(m_ah, m_tm, m_al, eps, c_al_high, c_al, c_al_low)
+	  EXISTS (should_alarm:[DTIME->BOOL], low_alarm:[DTIME->BOOL], high_alarm:[DTIME->BOOL]):
+	  limits_alarm_req(m_ah, m_tm, m_al, eps, high_alarm, should_alarm, low_alarm) AND
+	  FORALL (i:DTIME):
+	    COND
+	      i = 0 ->
+	        c_al(i) = 0,
+	      i > 0 ->
+	          COND
+	            should_alarm(i) = true ->
+	              c_al(i),
+	            should_alarm(i) = false AND held_for(c_al, 5)(i-1) ->
+	              NOT c_al(i),
+	            should_alarm(i) = false AND NOT held_for(c_al, 5)(i-1) ->
+	              c_al(i) = c_al(i-1)
+	          ENDCOND
+	    ENDCOND
+
 
 	% Function table for display temperature: c_td
 	dispTemp_ft(c_td, m_sw, m_st, m_tm): bool =
@@ -126,5 +142,13 @@ BEGIN
 	% Environmental Assumption
 
 	% Use Cases
-
+	alarm_ft_ok: CONJECTURE
+	  FORALL (i:DTIME):
+	    i > 0 AND
+	    alarm_ft(c_al, m_al, eps, m_ah, m_tm) AND
+	    m_al(i) = 97 AND
+	    m_ah(i) = 100 AND
+	    m_tm(i) = 105
+	    IMPLIES
+	    c_al(i+1)
 END isolette
