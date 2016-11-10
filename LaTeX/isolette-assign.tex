@@ -144,7 +144,7 @@ The controlled variables are a subset of those described in \cite{REMH}.\footnot
 \cv{td}                      & $\intg$                      & $\{0\} \bunion \{68 \upto 105\}$                                         & $\degree{F}$                  & \begin{tabular}[c]{@{}l@{}}displayed temperature of Isolette\\ (zero when Isolette is off)\end{tabular} \\ \hline
 \cv{al}                      & Enumerated                   & \{off, on\}                                                              &                               & sound alarm to call nurse                                                                               \\ \hline
 \cv{md}                      & Enumerated                   & \begin{tabular}[c]{@{}l@{}}\{off, init, \\ normal, failed\}\end{tabular} &                               & \begin{tabular}[c]{@{}l@{}}mode of Isolette operation\\ (failed if $\mv{st} = invalid$)\end{tabular}    \\ \hline
-\cv{ms}                      & Enumerated                   & \begin{tabular}[c]{@{}l@{}}\{ok, invalid\_sensor, invalid\_alarm\_limits, \\ alarm\_triggered\}\end{tabular} &                               & messages to display to nurse                                                                            \\ \hline
+\cv{ms}                      & Enumerated                   & \begin{tabular}[c]{@{}l@{}}\{ok, invalid\_sensor, \\ invalid\_alarm\_limits, \\ alarm\_triggered\}\end{tabular} &                               & messages to display to nurse                                                                            \\ \hline
 \end{tabular}
 \caption {Controlled Variables}
 \label{tbl:cv}
@@ -278,6 +278,7 @@ The statechart can be found below:
 \multicolumn{1}{|l|}{}                                & $temp\_no\_change\_zone$ \footnotemark & $c\_hc(i-1)$ \\ \hline
 \end{tabular}
 \caption{Function Table for heat control: \cv{hc}}
+\label{fthc}
 \end{table}
 \footnotetext{Defined in Abstract Variable \ref{eq:temphitshigh}}
 \footnotetext{Defined in Abstract Variable \ref{eq:temphitslow}}
@@ -354,7 +355,6 @@ The statechart can be found below:
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Validation}
-\hl{To be Done.}
 Proof of completeness and disjointness and validation of the requirements using PVS.
 
 Include the PVS sources in the appendix to this document but summarize the proofs here.
