@@ -421,8 +421,26 @@ Include the PVS sources in the appendix to this document but summarize the proof
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Use Cases}
-See Section A2 of \cite{REMH} for some use cases. The use cases need to be adapted to the revised descriptions of the previous sections of this document.
+Two usecases were derived from \cite{REMH} Appendix A
+\begin{itemize}
+    \item \begin{enumerate}
+        \item The isolette is off and the heat control is off
+        \item The nurse turns on the isolette
+        \item The isolette enters initialization mode and awaits configuration
+        \item The nurse sets the desired limits
+        \item The isolette enters normal mode and turns on the heat control
+        \item The isolette runs for some time and then the nurse turns off the isolette
+        \item The isolette powers off
+    \end{enumerate}
 
+    \item \begin{enumerate}
+        \item The isolette is running with the temperature within the range
+        \item The temperature exceeds the upper limit of the desired range
+        \item The isolette turns off the heat control
+        \item The temperature lowers and eventually drops below the lower limit of the desired range
+        \item The isolette turns the heat control on
+    \end{enumerate}
+\end{itemize}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Acceptance Tests}
 In this section, the use cases have to be converted into precise acceptance tests (using the function table to describe pre/post conditions) to be run when the design and implementation are complete.
