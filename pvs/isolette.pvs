@@ -161,6 +161,14 @@ BEGIN
 	      ENDCOND
 	  ENDCOND
 
+	% Master FT
+	isolette_ft(m_tm, m_dl, m_dh, m_al, m_ah, m_st, m_sw, eps, c_hc, c_td, c_al, c_md, c_ms): bool =
+	  modes_ft(c_md, m_sw, m_st, m_dl, m_tm, m_dh, m_al, m_ah) AND
+	  heater_ft(c_hc, m_dl, m_dh, m_tm) AND
+	  alarm_ft(c_al, m_al, eps, m_ah, m_tm) AND
+	  dispTemp_ft(c_td, m_sw, m_st, m_tm) AND
+	  msg_ft(c_ms, c_al, eps, m_tm, m_dl, m_dh, m_al, m_ah, m_st)
+
 	% Use Cases
 	alarm_ft_ok: CONJECTURE
 	  FORALL (i:DTIME):
