@@ -152,7 +152,17 @@ The controlled variables are a subset of those described in \cite{REMH}.\footnot
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Mode Diagram}
-\hl{To Do}. Provide a statechart for the mode-diagram and provide rationale for the statechart.
+Provide a statechart for the mode-diagram and provide rationale for the statechart.
+The statechart can be found below:
+
+\begin{figure}[!htb]
+\begin{center}
+\includegraphics[width=.8\textwidth]{pics/modes.png}
+\end{center}
+\caption{The modes of the isolette }
+\label{fig:modes}
+\end{figure}
+\textbf{Rationale}: The isolette might not be on, or the operator has not yet configured the islotte, or there is a hardware failue. These conditions are continuosly checked and if the conditions pass, then the isolette begins operating in the normal mode with no errors.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{E/R-descriptions}
