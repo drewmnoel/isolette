@@ -1286,89 +1286,8 @@
     (delta const-decl "posreal" isolette nil)
     (DTIME type-eq-decl nil Time nil))
    shostak))
- (t4 0
-  (t4-1 nil 3687778603
-   ("" (skeep)
-    (("" (expand "isolette_ft")
-      (("" (flatten)
-        (("" (delete -1 -2 -4 -5)
-          (("" (expand "alarm_ft")
-            (("" (skeep)
-              (("" (inst -2 i)
-                (("" (expand "limits_alarm_req")
-                  (("" (expand "b2n")
-                    (("" (assert)
-                      (("" (flatten)
-                        (("" (expand "gte_one")
-                          (("" (expand "low_alarm_req")
-                            (("" (expand "high_alarm_req")
-                              ((""
-                                (case "env_1(m_ah, m_tm, m_al, eps)")
-                                (("1"
-                                  (rewrite -1)
-                                  (("1"
-                                    (inst -1 i)
-                                    (("1"
-                                      (inst -2 i)
-                                      (("1"
-                                        (inst -3 i)
-                                        (("1"
-                                          (assert)
-                                          (("1"
-                                            (split -1)
-                                            (("1" (grind) nil nil)
-                                             ("2"
-                                              (flatten)
-                                              (("2"
-                                                (split -2)
-                                                (("1"
-                                                  (postpone)
-                                                  nil
-                                                  nil)
-                                                 ("2"
-                                                  (postpone)
-                                                  nil
-                                                  nil))
-                                                nil))
-                                              nil))
-                                            nil))
-                                          nil))
-                                        nil))
-                                      nil))
-                                    nil))
-                                  nil)
-                                 ("2" (postpone) nil nil))
-                                nil))
-                              nil))
-                            nil))
-                          nil))
-                        nil))
-                      nil))
-                    nil))
-                  nil))
-                nil))
-              nil))
-            nil))
-          nil))
-        nil))
-      nil))
-    nil)
-   nil shostak))
- (t5 0
-  (t5-1 nil 3687778754
-   ("" (skeep)
-    (("" (expand "isolette_ft")
-      (("" (flatten)
-        (("" (delete -2 -3 -4 -5)
-          (("" (grind)
-            (("1" (postpone) nil nil) ("2" (postpone) nil nil)) nil))
-          nil))
-        nil))
-      nil))
-    nil)
-   nil shostak))
- (t6_TCC1 0
-  (t6_TCC1-1 nil 3687777561 ("" (subtype-tcc) nil nil)
+ (t4_TCC1 0
+  (t4_TCC1-1 nil 3687777561 ("" (subtype-tcc) nil nil)
    ((DTIME type-eq-decl nil Time nil)
     (int nonempty-type-eq-decl nil integers nil)
     (integer_pred const-decl "[rational -> boolean]" integers nil)
@@ -1414,8 +1333,8 @@
     (mult_divides1 application-judgement "(divides(n))" divides nil)
     (mult_divides2 application-judgement "(divides(m))" divides nil))
    nil))
- (t6 0
-  (t6-1 nil 3687778775
+ (t4 0
+  (t4-1 nil 3687778775
    ("" (skeep)
     (("" (expand "isolette_ft")
       (("" (flatten)
@@ -1469,8 +1388,8 @@
     (posint_times_posint_is_posint application-judgement "posint"
      integers nil))
    shostak))
- (t7 0
-  (t7-1 nil 3687778838
+ (t5 0
+  (t5-1 nil 3687778838
    ("" (skeep)
     (("" (expand "isolette_ft")
       (("" (flatten)
@@ -1569,15 +1488,8 @@
     (posint_times_posint_is_posint application-judgement "posint"
      integers nil))
    shostak))
- (t8 0
-  (t8-1 nil 3687779043
-   ("" (skeep)
-    (("" (expand "isolette_ft")
-      (("" (flatten) (("" (postpone) nil nil)) nil)) nil))
-    nil)
-   nil shostak))
- (t9 0
-  (t9-1 nil 3687777561
+ (t6 0
+  (t6-1 nil 3687777561
    ("" (skeep)
     (("" (expand "b2n")
       (("" (assert)
@@ -1627,4 +1539,3 @@
     (real_gt_is_strict_total_order name-judgement
      "(strict_total_order?[real])" real_props nil))
    shostak)))
-

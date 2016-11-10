@@ -237,32 +237,16 @@ BEGIN
 	  (c_md(i) = failed IMPLIES m_st(i) = invalid)
 
 	t4: CONJECTURE
-	  FORALL (i:DTIME): isolette_ft(m_tm, m_dl, m_dh, m_al, m_ah, m_st, m_sw, eps, c_hc, c_td, c_al, c_md, c_ms) AND i > 0
-	  AND c_al(i) = 0
-	  IMPLIES
-	  (c_al(i+1) = 0 IMPLIES m_dl(i+1) < m_tm(i+1) + eps(i+1) AND m_tm(i+1) < m_dh(i+1) - eps(i+1))
-
-	t5: CONJECTURE
-	  FORALL (i:DTIME): isolette_ft(m_tm, m_dl, m_dh, m_al, m_ah, m_st, m_sw, eps, c_hc, c_td, c_al, c_md, c_ms) AND i > 0
-	  IMPLIES
-	  (c_md(i) = normal AND (m_tm(i) <= m_al(i) OR m_ah(i) <= m_tm(i)) IMPLIES c_al(i) = true)
-
-	t6: CONJECTURE
 	  FORALL (i:DTIME): isolette_ft(m_tm, m_dl, m_dh, m_al, m_ah, m_st, m_sw, eps, c_hc, c_td, c_al, c_md, c_ms) AND i > 10
 	  IMPLIES
 	  (held_for(c_al, 10)(i-10) AND NOT c_ms(i) = alarm_triggered IMPLIES NOT c_al(i))
 
-	t7: CONJECTURE
+	t5: CONJECTURE
 	  FORALL (i:DTIME): isolette_ft(m_tm, m_dl, m_dh, m_al, m_ah, m_st, m_sw, eps, c_hc, c_td, c_al, c_md, c_ms) AND i > 0
 	  IMPLIES
 	  (c_al(i) IMPLIES c_ms(i) = alarm_triggered)
 
-	t8: CONJECTURE
-	  FORALL (i:DTIME): isolette_ft(m_tm, m_dl, m_dh, m_al, m_ah, m_st, m_sw, eps, c_hc, c_td, c_al, c_md, c_ms) AND i > 0
-	  IMPLIES
-	  (NOT (c_al(i) OR c_hc(i) = 1 OR c_md(i) /= normal) IMPLIES c_ms(i) = ok)
-
-	t9: CONJECTURE
+	t6: CONJECTURE
 	  FORALL (i:DTIME): isolette_ft(m_tm, m_dl, m_dh, m_al, m_ah, m_st, m_sw, eps, c_hc, c_td, c_al, c_md, c_ms) AND i > 0
 	  IMPLIES
 	  (m_sw(i) = false IMPLIES c_hc(i) = false)
