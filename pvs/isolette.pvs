@@ -17,7 +17,7 @@ BEGIN
 	% Controlled Variables Types
 	DISP_TEMP: TYPE = {y: nat | y = 0 OR (68 <= y AND y <= 105)}
 	MODE: TYPE = {off, init, normal, failed}
-	MSG: TYPE = {ok, invalid_sensor, invalid_alarm_high, invalid_alarm_low, alarm_triggered}
+	MSG: TYPE = {ok, invalid_sensor, invalid_alarm_limits, alarm_triggered}
 	EPS_RANGE: TYPE = subrange(1,1)
 
 	% Monitored Variables
@@ -140,23 +140,24 @@ BEGIN
 
 
 	% Function table for error message: c_ms
-	msg_ft(m_tm, m_dl, m_dh, m_al, m_ah, m_st): bool = 
+	msg_ft(c_ms, c_al, eps, m_tm, m_dl, m_dh, m_al, m_ah, m_st): bool =
 	  FORALL (i:DTIME):
 	  COND
 	    i = 0 ->
 	      c_ms(i) = ok,
 	    i > 0 ->
 	      COND
-	        m_tm(i) > m_ah(i) ->
-	          c_ms(i) = invalid_alarm_high,
-	        m_tm(i) < m_al(i) ->
-	          c_ms(i) = invalid_alarm_low,
-	        m_tm(i) > m_dh(i) OR m_tm(i) < m_dl(i) ->
+	        c_al(i) ->
 	          c_ms(i) = alarm_triggered,
-	        m_st(i) = true ->
-	          c_ms(i) = invalid_sensor,
-	        m_al(i) < m_tm(i) AND m_tm(i) < m_ah(i) AND m_al(i) < m_dl(i) AND m_dh(i) < m_ah(i) AND m_dl(i) < m_dh(i) AND m_st(i) = valid ->
-	          c_ms(i) = ok
+	        NOT c_al(i) ->
+	        COND
+	          m_st(i) = invalid ->
+                c_ms(i) = invalid_sensor,
+	          m_st(i) = valid AND m_al(i) >= m_ah(i) - 2 * eps(i) ->
+                c_ms(i) = invalid_alarm_limits,
+	          m_st(i) = valid AND m_al(i) < m_ah(i) - 2 * eps(i) ->
+                c_ms(i) = ok
+	        ENDCOND
 	      ENDCOND
 	  ENDCOND
 
