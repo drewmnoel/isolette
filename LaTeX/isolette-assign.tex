@@ -4,6 +4,7 @@
 
 %Standard Pre-amble
 \input{sty/defns.tex}
+\usepackage{placeins}
 
 % Set the header
 \ihead[]{\small EECS4312 Isolette Assignment}
@@ -237,7 +238,6 @@ The statechart can be found below:
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Abstract variables needed for the Function Table}
-\hl{If needed, provide abstract variables here. Otherwise, state that abstract variables are not needed.}
 
 \begin{enumerate}
     \item $init\_cond = m\_st(i) = valid \wedge m\_dl(i) <= m\_tm(i) \wedge m\_tm(i) <= m\_dh(i) \wedge m\_al(i) < m\_dl(i) \wedge m\_dl(i) < m\_dh(i) \wedge m\_dh(i) < m\_ah(i)$
@@ -270,16 +270,18 @@ The statechart can be found below:
 \section{Function Table}
 
 \subsection{Function Table for heat control: \cv{hc}}
+\FloatBarrier
+
 \begin{table}[]
 \centering
 \begin{tabular}{llll|l|}
 \cline{5-5}
                                                         &                                                       &                                                                        &                        & c\_hc                 \\ \hline
 \multicolumn{4}{|l|}{i = 0}                                                                                                                                                                                       & c\_hc(i) = false      \\ \hline
-\multicolumn{1}{|l|}{\multirow{5}{*}{i \textgreater 0}} & \multicolumn{3}{l|}{c\_md(i) = off}                                                                                                                     & c\_hc(i) = false      \\ \cline{2-5} 
-\multicolumn{1}{|l|}{}                                  & \multicolumn{1}{l|}{\multirow{4}{*}{c\_md(i) /= off}} & \multicolumn{1}{l|}{\multirow{3}{*}{$\neg overlap$ \footnotemark}} & temp\_hits\_high \footnotemark      & c\_hc(i) = false      \\ \cline{4-5} 
-\multicolumn{1}{|l|}{}                                  & \multicolumn{1}{l|}{}                                 & \multicolumn{1}{l|}{}                                                  & temp\_hits\_low \footnotemark       & c\_hc(i) = true       \\ \cline{4-5} 
-\multicolumn{1}{|l|}{}                                  & \multicolumn{1}{l|}{}                                 & \multicolumn{1}{l|}{}                                                  & temp\_no\_change\_zone \footnotemark & c\_hc(i) = c\_hc(i-1) \\ \cline{3-5} 
+\multicolumn{1}{|l|}{\multirow{5}{*}{i \textgreater 0}} & \multicolumn{3}{l|}{c\_md(i) = off}                                                                                                                     & c\_hc(i) = false      \\ \cline{2-5}
+\multicolumn{1}{|l|}{}                                  & \multicolumn{1}{l|}{\multirow{4}{*}{c\_md(i) /= off}} & \multicolumn{1}{l|}{\multirow{3}{*}{$\neg overlap$ \footnotemark}} & temp\_hits\_high \footnotemark      & c\_hc(i) = false      \\ \cline{4-5}
+\multicolumn{1}{|l|}{}                                  & \multicolumn{1}{l|}{}                                 & \multicolumn{1}{l|}{}                                                  & temp\_hits\_low \footnotemark       & c\_hc(i) = true       \\ \cline{4-5}
+\multicolumn{1}{|l|}{}                                  & \multicolumn{1}{l|}{}                                 & \multicolumn{1}{l|}{}                                                  & temp\_no\_change\_zone \footnotemark & c\_hc(i) = c\_hc(i-1) \\ \cline{3-5}
 \multicolumn{1}{|l|}{}                                  & \multicolumn{1}{l|}{}                                 & \multicolumn{2}{l|}{overlap}                                               & c\_hc(i) = c\_hc(i-1) \\ \hline
 \end{tabular}
 \caption{Function Table for heat control: \cv{hc}}
@@ -290,7 +292,10 @@ The statechart can be found below:
 \footnotetext{Defined in Abstract Variable \ref{eq:tempnochangezone}}
 \footnotetext{Defined in Abstract Variable \ref{eq:overlap}}
 
+\FloatBarrier
 \subsection{Function Table for displayed temperature: \cv{td}}
+\FloatBarrier
+
 \begin{table}[htb!]
 \centering
 \label{my-label}
@@ -305,7 +310,10 @@ The statechart can be found below:
 \caption{Function Table for displayed temperature: \cv{td}}
 \end{table}
 
+\FloatBarrier
 \subsection{Function Table for alarm: \cv{al}}
+\FloatBarrier
+
 \begin{table}[htb!]
 \centering
 \label{my-label}
@@ -321,7 +329,10 @@ The statechart can be found below:
 \end{table}
 \footnotetext{Defined in Abstract Variable \ref{eq:condalarm}}
 
+\FloatBarrier
 \subsection{Function Table for Isolette mode: \cv{md}}
+\FloatBarrier
+
 \begin{table}[htb!]
 \centering
 \begin{tabular}{llll|l|}
@@ -341,7 +352,10 @@ The statechart can be found below:
 \end{table}
 \footnotetext{Defined in Abstract Variable \ref{eq:initcond}}
 
+\FloatBarrier
 \subsection{Function Table for displayed message: \cv{ms}}
+\FloatBarrier
+
 \begin{table}[htb!]
 \centering
 \label{my-label}
