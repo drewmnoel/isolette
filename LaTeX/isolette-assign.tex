@@ -5,6 +5,15 @@
 %Standard Pre-amble
 \input{sty/defns.tex}
 \usepackage{placeins}
+\usepackage{listings}
+\lstset{
+    frame=single,
+    breaklines=true,
+    postbreak=\raisebox{0ex}[0ex][0ex]{\ensuremath{\color{red}\hookrightarrow\space}}
+}
+\usepackage{courier}
+
+\lstset{basicstyle=\footnotesize\ttfamily,breaklines=true}
 
 % Set the header
 \ihead[]{\small EECS4312 Isolette Assignment}
@@ -321,7 +330,7 @@ The statechart can be found below:
 \cline{5-5}
                                                         &                                                       &                                                           &                                & $c\_al$                 \\ \hline
 \multicolumn{4}{|l|}{$i = 0$}                                                                                                                                                                                  & false          \\ \hline
-\multicolumn{1}{|l|}{\multirow{4}{*}{$i > 0$}} & \multicolumn{3}{l|}{$cond\_alarm$}                                                                                                                   & $c\_al(i-1)$ \\ \cline{2-5}
+\multicolumn{1}{|l|}{\multirow{4}{*}{$i > 0$}} & \multicolumn{3}{l|}{$cond\_alarm$\footnotemark}                                                                                                                   & $c\_al(i-1)$ \\ \cline{2-5}
 \multicolumn{1}{|l|}{}                                  & \multicolumn{1}{l|}{\multirow{3}{*}{$\neg cond\_alarm$}} & \multicolumn{2}{l|}{$sound\_alarm(i)$}                                                       & true              \\ \cline{3-5}
 \multicolumn{1}{|l|}{}                                  & \multicolumn{1}{l|}{}                                 & \multicolumn{1}{l|}{\multirow{2}{*}{$\neg sound\_alarm(i)$}} & $held\_for(c\_al, 10)(i-10)$     & false          \\ \cline{4-5}
 \multicolumn{1}{|l|}{}                                  & \multicolumn{1}{l|}{}                                 & \multicolumn{1}{l|}{}                                     & $\neg held\_for(c\_al, 10)(i-10)$ & $c\_al(i-1)$ \\ \hline
@@ -506,6 +515,8 @@ t6   & R6                   & Yes    \\ \hline
 \FloatBarrier
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Appendix A -- PVS source}
+\lstinputlisting{../pvs/isolette.pvs}
 \bibliographystyle{plain}
 \bibliography{ref}
 \end{document}
