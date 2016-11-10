@@ -117,9 +117,9 @@ BEGIN
 	          COND
 	            should_alarm(i) = true ->
 	              c_al(i),
-	            should_alarm(i) = false AND held_for(c_al, 5)(i-1) ->
+	            should_alarm(i) = false AND held_for(c_al, 10)(i-1) ->
 	              NOT c_al(i),
-	            should_alarm(i) = false AND NOT held_for(c_al, 5)(i-1) ->
+	            should_alarm(i) = false AND NOT held_for(c_al, 10)(i-1) ->
 	              c_al(i) = c_al(i-1)
 	          ENDCOND
 	    ENDCOND
