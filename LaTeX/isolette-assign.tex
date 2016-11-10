@@ -457,40 +457,40 @@ Two usecases were derived from \cite{REMH} Appendix A
 In this section, the use cases have to be converted into precise acceptance tests (using the function table to describe pre/post conditions) to be run when the design and implementation are complete.
 
 
-\begin{verbatim}
+\begin{lstlisting}
 The first acceptance test checks whether the isolette off switch is acting as predicted per REQ1.
 Precondition: switch is off
 Postcondition: isolette is in off mode
-\end{verbatim}
+\end{lstlisting}
 
-\begin{verbatim}
+\begin{lstlisting}
 The second acceptance test checks whether the isolette can properly be initialized in the right state as per REQ1.$Precondition: isolette is initializing
 Postcondition: isolette is on
-\end{verbatim}
+\end{lstlisting}
 
-\begin{verbatim}
+\begin{lstlisting}
 The third acceptance test checks whether the isolette failing means that the sensor has failed stated per REQ1.
 Precondition: isolette is in fail mode
 Postcondition: sensor has indeed failed
-\end{verbatim}
+\end{lstlisting}
 
-\begin{verbatim}
+\begin{lstlisting}
 The fourth acceptance test checks whether the isolette ringing for 10 seconds or not being turned off through the messages has indeed turned off the alarm as described per REQ4.
 Precondition: 10 seconds have passed and there is no alarm_triggered message
 Postcondition: isolette is not sounding alarm
-\end{verbatim}
+\end{lstlisting}
 
-\begin{verbatim}
+\begin{lstlisting}
 The fifth acceptance test checks whether the isolette displays an alarm\_triggered message when the alarm is triggered as per REQ5.
 Precondition: alarm triggered
 Postcondition: isolette displays alarm_triggered message
-\end{verbatim}
+\end{lstlisting}
 
-\begin{verbatim}
+\begin{lstlisting}
 The sixth acceptance test checks whether the off switch turns the heater off as per REQ6.
 Precondition: switch is off
 Postcondition: heater is turned off
-\end{verbatim}
+\end{lstlisting}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Traceability}
