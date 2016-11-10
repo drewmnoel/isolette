@@ -170,6 +170,24 @@ BEGIN
 	  msg_ft(c_ms, c_al, eps, m_tm, m_dl, m_dh, m_al, m_ah, m_st)
 
 	% Use Cases
+	usecase_a_2_1: CONJECTURE
+	  isolette_ft(m_tm, m_dl, m_dh, m_al, m_ah, m_st, m_sw, eps, c_hc, c_td, c_al, c_md, c_ms) AND
+	  m_tm(0) = 68 AND
+	  m_sw(1) = true AND   % Nurse turns on the isolette
+	  m_tm(1) = 68 AND
+	  m_dl(2) = 97 AND     % Nurse configures the isolette
+	  m_dh(2) = 100 AND    % Nurse waits for current temperature to reach range
+	  m_tm(2) = 75 AND
+	  m_tm(3) = 98 AND
+	  m_sw(4) = false      % Nurse turns off the isolette
+	  IMPLIES
+	  c_md(0) = off AND
+	  c_hc(0) = false AND
+	  c_hc(1) = true AND   % Isolette powers on the heat
+	  c_md(1) = init AND   % Isolette awaits configuration
+	  c_md(2) = normal AND % Isolette enters normal mode
+	  c_md(4) = off
+
 	alarm_ft_ok: CONJECTURE
 	  FORALL (i:DTIME):
 	    i > 0 AND
