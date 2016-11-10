@@ -38,6 +38,8 @@ BEGIN
 	% Constant Variables:
 	eps: VAR [DTIME->EPS_RANGE]
 
+	% Environmental Assumptions
+
 	% Function Tables
 	% Funtion table for modes: c_md
 	modes_ft(c_md, m_sw, m_st, m_dl, m_tm, m_dh, m_al, m_ah): bool =
@@ -122,8 +124,25 @@ BEGIN
 
 
 	% Function table for error message: c_ms
-
-	% Environmental Assumption
+	msg_ft(m_tm, m_dl, m_dh, m_al, m_ah, m_st): bool = 
+	  FORALL (i:DTIME):
+	  COND
+	    i = 0 ->
+	      c_ms(i) = ok,
+	    i > 0 ->
+	      COND
+	        m_tm(i) > m_ah(i) ->
+	          c_ms(i) = invalid_alarm_high,
+	        m_tm(i) < m_al(i) ->
+	          c_ms(i) = invalid_alarm_low,
+	        m_tm(i) > m_dh(i) OR m_tm(i) < m_dl(i) ->
+	          c_ms(i) = alarm_triggered,
+	        m_st(i) = true ->
+	          c_ms(i) = invalid_sensor,
+	        m_al(i) < m_tm(i) AND m_tm(i) < m_ah(i) AND m_al(i) < m_dl(i) AND m_dh(i) < m_ah(i) AND m_dl(i) < m_dh(i) AND m_st(i) = valid ->
+	          c_ms(i) = ok
+	      ENDCOND
+	  ENDCOND
 
 	% Use Cases
 
