@@ -207,6 +207,25 @@ The controlled variables are a subset of those described in \cite{REMH}.\footnot
 \label{E6}
 \textbf{Rationale}: The given inputs have some given granularity, imposed requirements on the SUD.
 
+\reqm{REQ}
+{The isolette shall check the user input and provide an error message if the low or high alarm limits are not properly set\\}
+{The monitored variables m\_dl, m\_dh, m\_al, and m\_dh are cross checked, see table 6}
+\label{R7}
+\textbf{Rationale}: The operator might make a mistake configuring the isolette, an error should appear if they do so.
+
+\reqm{REQ}
+{The isolette shall check whether the heat sensor is valid and provide an error if it is not.\\}
+{The monitored variable m\_st is checked, see table 6}
+\label{R8}
+\textbf{Rationale}: The sensor might fail, the operator should know of any failures so the hardware can be replaced.
+
+\reqm{ENV}
+{Failure of equipment will change the monitored variable m\_st to invalid\\}
+{The hardware environment ensures that monitored variable can be trusted to be true}
+\label{E9}
+\textbf{Rationale}: This allows the isolette to act predictably.
+
+
 \hl{TODO: Decide on 3 other E/R descriptions to list}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
