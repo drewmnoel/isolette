@@ -201,5 +201,5 @@ BEGIN
 	  m_tm(4) > m_dh(4) AND
 	  m_tm(5) < m_dl(5)
 	  IMPLIES
-	  c_hc(4) = true AND c_hc(5) = false
+	  c_hc(4) = 0 AND c_hc(5) = 1
 END isolette
