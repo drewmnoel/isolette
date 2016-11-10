@@ -202,4 +202,15 @@ BEGIN
 	  m_tm(5) < m_dl(5) - eps(5)
 	  IMPLIES
 	  c_hc(4) = 0 AND c_hc(5) = 1
+
+	% Acceptance tests
+	% m_sw(i) = off iff c_md(i) = off
+	% c_md(i) = init IMPLIES m_sw(i) = on
+	% m_st(i) = invalid iff c_md(i) = fail
+	% c_md(i) = normal IMPLIES m_dl(i) <= m_tm(i) AND m_tm(i) <= m_dh(i)
+	% c_md(i) = normal AND (m_tm(i) <= m_al(i) OR m_ah(i) <= m_tm(i)) iff c_al(i) = true
+	% heldfor(10) IMPLIES alarm no longer active
+	% c_al(i) IMPLIES c_ms = alarm triggered
+	% NOT (c_al(i) OR c_hc(i) OR c_md /= normal) IMPLIES c_ms = ok
+	% NOT m_sw(i) IMPLIES NOT c_ms = ok
 END isolette
