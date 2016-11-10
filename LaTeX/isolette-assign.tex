@@ -170,9 +170,9 @@ The statechart can be found below:
 % The following requirements were provided in isolette-readme.pdf
 \reqm{REQ}
 {The \emph{controller} shall operate in one of four modes: \emph{off}, \emph{init}, \emph{normal} and \emph{fail}.\\}
-{See statechart in Fig.~\ref{fig:sc}.}
+{See statechart in Fig.~\ref{fig:modes}.}
 \label{R1}
-\textbf{Rationale}: The controller is either: off, awaiting initial valid inputs, in a valid state, or in an invalid state. These are the only possible states, and the transitions are given in Fig.~\ref{fig:sc}.
+\textbf{Rationale}: The controller is either: off, awaiting initial valid inputs, in a valid state, or in an invalid state. These are the only possible states, and the transitions are given in Fig.~\ref{fig:modes}.
 
 \reqm{REQ}
 {In the \emph{normal} mode, the temperature controller shall maintain current temperature inside the Isolette within a set temperature range (the \emph{desired} range).\\}
@@ -242,7 +242,12 @@ The statechart can be found below:
 \begin{enumerate}
     \item $init\_cond = m\_st(i) = valid \wedge m\_dl(i) <= m\_tm(i) \wedge m\_tm(i) <= m\_dh(i) \wedge m\_al(i) < m\_dl(i) \wedge m\_dl(i) < m\_dh(i) \wedge m\_dh(i) < m\_ah(i)$
     \label{eq:initcond}
+
+  \item $cond\_alarm = EXISTS (should\_alarm:[DTIME->BOOL], low\_alarm:[DTIME->BOOL], high\_alarm:[DTIME->BOOL]):
+	  limits\_alarm\_req(m\_ah, m\_tm, m\_al, eps, high\_alarm, should\_alarm, low\_alarm) $
+  \label{eq:condalarm}
 \end{enumerate}
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Function Table}
 
@@ -276,6 +281,20 @@ The statechart can be found below:
 \end{table}
 
 \subsection{Function Table for alarm: \cv{al}}
+\begin{table}[]
+\centering
+\label{my-label}
+\begin{tabular}{llll|l|}
+\cline{5-5}
+                                                   &                                       &                                                               &                               & c\_al                 \\ \hline
+\multicolumn{5}{|l|}{NOT cond\_alarm}                                                                                                                                                                              \\ \hline
+\multicolumn{1}{|l|}{\multirow{4}{*}{cond\_alarm}} & \multicolumn{1}{l|}{i = 0}            & \multicolumn{1}{l|}{}                                         &                               & c\_al(i) = 0          \\ \cline{2-5} 
+\multicolumn{1}{|l|}{}                             & \multicolumn{1}{l|}{i \textgreater 0} & \multicolumn{2}{l|}{sound\_alarm(i) = true}                                                   & c\_al(i)              \\ \cline{2-5} 
+\multicolumn{1}{|l|}{}                             & \multicolumn{1}{l|}{}                 & \multicolumn{1}{l|}{\multirow{2}{*}{sound\_alarm(i) = false}} & held\_for(c\_al, 10)(i-1)     & NOT c\_al(i)          \\ \cline{2-2} \cline{4-5} 
+\multicolumn{1}{|l|}{}                             & \multicolumn{1}{l|}{}                 & \multicolumn{1}{l|}{}                                         & NOT held\_for(c\_al, 10)(i-1) & c\_al(i) = c\_al(i-1) \\ \hline
+\end{tabular}
+\caption{Function Table for alarm: \cv{al}}
+\end{table}
 
 
 \hl{TODO}
