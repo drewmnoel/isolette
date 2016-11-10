@@ -197,14 +197,4 @@ BEGIN
 	  m_tm(5) < m_dl(5)
 	  IMPLIES
 	  c_hc(4) = true AND c_hc(5) = false
-
-	alarm_ft_ok: CONJECTURE
-	  FORALL (i:DTIME):
-	    i > 0 AND
-	    alarm_ft(c_al, m_al, eps, m_ah, m_tm) AND
-	    m_al(i) = 97 AND
-	    m_ah(i) = 100 AND
-	    m_tm(i) = 105
-	    IMPLIES
-	    c_al(i+1)
 END isolette
