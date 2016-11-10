@@ -216,13 +216,31 @@ BEGIN
 	  c_hc(4) = 0 AND c_hc(5) = 1
 
 	% Acceptance tests
-	% m_sw(i) = off iff c_md(i) = off
-	% c_md(i) = init IMPLIES m_sw(i) = on
-	% m_st(i) = invalid iff c_md(i) = fail
-	% c_md(i) = normal IMPLIES m_dl(i) <= m_tm(i) AND m_tm(i) <= m_dh(i)
-	% c_md(i) = normal AND (m_tm(i) <= m_al(i) OR m_ah(i) <= m_tm(i)) iff c_al(i) = true
-	% heldfor(10) IMPLIES alarm no longer active
-	% c_al(i) IMPLIES c_ms = alarm triggered
-	% NOT (c_al(i) OR c_hc(i) OR c_md /= normal) IMPLIES c_ms = ok
-	% NOT m_sw(i) IMPLIES NOT c_ms = ok
+	t1: CONJECTURE
+	   FORALL (i:DTIME) (m_sw(i) = off iff c_md(i) = off)
+	
+	t2: CONJECTURE
+	  FORALL (i:DTIME) (c_md(i) = init IMPLIES m_sw(i) = on)
+	
+	t3: CONJECTURE
+	  FORALL (i:DTIME) (c_md(i) = fail IMPLIES m_st(i) = invalid)
+	
+	t4: CONJECTURE
+	  FORALL (i:DTIME) (c_md(i) = normal IMPLIES m_dl(i) <= m_tm(i) AND m_tm(i) <= m_dh(i))
+	
+	t5: CONJECTURE
+	  FORALL (i:DTIME) (c_md(i) = normal AND (m_tm(i) <= m_al(i) OR m_ah(i) <= m_tm(i)) IMPLIES c_al(i) = true)
+	
+	t6: CONJECTURE
+	  FORALL (i:DTIME) (heldfor(c_al, 10)(i-10) IMPLIES NOT c_al(i))
+	
+	t7: CONJECTURE
+	  FORALL (i:DTIME) (c_al(i) IMPLIES c_ms = alarm_triggered)
+	
+	t8: CONJECTURE
+	  FORALL (i:DTIME) (NOT (c_al(i) OR c_hc(i) OR c_md /= normal) IMPLIES c_ms = ok)
+
+	t9: CONJECTURE
+	  FORALL (i:DTIME) (NOT m_sw(i) IMPLIES NOT c_ms = ok)
+
 END isolette
