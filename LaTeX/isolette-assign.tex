@@ -277,11 +277,11 @@ The statechart can be found below:
 \begin{tabular}{llll|l|}
 \cline{5-5}
                                                         &                                                       &                                                                        &                        & $c\_hc$                 \\ \hline
-\multicolumn{4}{|l|}{$i = 0$}                                                                                                                                                                                       & $c\_hc(i) =$ false      \\ \hline
-\multicolumn{1}{|l|}{\multirow{5}{*}{$i > 0$}} & \multicolumn{3}{l|}{$c\_md(i) =$ off}                                                                                                                     & $c\_hc(i) =$ false      \\ \cline{2-5}
-\multicolumn{1}{|l|}{}                                  & \multicolumn{1}{l|}{\multirow{4}{*}{$c\_md(i) \not =$ off}} & \multicolumn{1}{l|}{\multirow{3}{*}{$\neg overlap$ \footnotemark}} & $temp\_hits\_high$ \footnotemark      & $c\_hc(i) =$ false      \\ \cline{4-5}
-\multicolumn{1}{|l|}{}                                  & \multicolumn{1}{l|}{}                                 & \multicolumn{1}{l|}{}                                                  & $temp\_hits\_low$ \footnotemark       & $c\_hc(i) =$ true       \\ \cline{4-5}
-\multicolumn{1}{|l|}{}                                  & \multicolumn{1}{l|}{}                                 & \multicolumn{1}{l|}{}                                                  & $temp\_no\_change\_zone$ \footnotemark & $c\_hc(i) = c\_hc(i-1)$ \\ \cline{3-5}
+\multicolumn{4}{|l|}{$i = 0$}                                                                                                                                                                                       & false      \\ \hline
+\multicolumn{1}{|l|}{\multirow{5}{*}{$i > 0$}} & \multicolumn{3}{l|}{$c\_md(i) =$ off}                                                                                                                     & false      \\ \cline{2-5}
+\multicolumn{1}{|l|}{}                                  & \multicolumn{1}{l|}{\multirow{4}{*}{$c\_md(i) \not =$ off}} & \multicolumn{1}{l|}{\multirow{3}{*}{$\neg overlap$ \footnotemark}} & $temp\_hits\_high$ \footnotemark      & false      \\ \cline{4-5}
+\multicolumn{1}{|l|}{}                                  & \multicolumn{1}{l|}{}                                 & \multicolumn{1}{l|}{}                                                  & $temp\_hits\_low$ \footnotemark       &  true       \\ \cline{4-5}
+\multicolumn{1}{|l|}{}                                  & \multicolumn{1}{l|}{}                                 & \multicolumn{1}{l|}{}                                                  & $temp\_no\_change\_zone$ \footnotemark & $c\_hc(i-1)$ \\ \cline{3-5}
 \multicolumn{1}{|l|}{}                                  & \multicolumn{1}{l|}{}                                 & \multicolumn{2}{l|}{$overlap$}                                               & $c\_hc(i) = c\_hc(i-1)$ \\ \hline
 \end{tabular}
 \caption{Function Table for heat control: \cv{hc}}
@@ -318,12 +318,13 @@ The statechart can be found below:
 \centering
 \label{my-label}
 \begin{tabular}{llll|l|}
-\cline{5-5}                                       &                                       &                                                               &                               & $c\_al$                 \\ \hline
-\multicolumn{5}{|l|}{$\neg cond\_alarm$ \footnotemark                                                                                                                                                                             } \\ \hline
-\multicolumn{1}{|l|}{\multirow{4}{*}{$cond\_alarm$}} & \multicolumn{1}{l|}{$i = 0$}            & \multicolumn{1}{l|}{}                                         &                               & $c\_al(i) = 0$          \\ \cline{2-5}
-\multicolumn{1}{|l|}{}                             & \multicolumn{1}{l|}{$i > 0$} & \multicolumn{2}{l|}{$sound\_alarm(i) =$ true}                                                   & $c\_al(i)$              \\ \cline{2-5}
-\multicolumn{1}{|l|}{}                             & \multicolumn{1}{l|}{}                 & \multicolumn{1}{l|}{\multirow{2}{*}{$sound\_alarm(i) =$ false}} & $held\_for(c\_al, 10)(i-1)$     & $\neg c\_al(i)$          \\ \cline{2-2} \cline{4-5}
-\multicolumn{1}{|l|}{}                             & \multicolumn{1}{l|}{}                 & \multicolumn{1}{l|}{}                                         & $\neg held\_for(c\_al, 10)(i-1)$ & $c\_al(i) = c\_al(i-1)$ \\ \hline
+\cline{5-5}
+                                                        &                                                       &                                                           &                                & $c\_al$                 \\ \hline
+\multicolumn{4}{|l|}{$i = 0$}                                                                                                                                                                                  & false          \\ \hline
+\multicolumn{1}{|l|}{\multirow{4}{*}{$i > 0$}} & \multicolumn{3}{l|}{$cond\_alarm$}                                                                                                                   & $c\_al(i-1)$ \\ \cline{2-5}
+\multicolumn{1}{|l|}{}                                  & \multicolumn{1}{l|}{\multirow{3}{*}{$\neg cond\_alarm$}} & \multicolumn{2}{l|}{$sound\_alarm(i)$}                                                       & true              \\ \cline{3-5}
+\multicolumn{1}{|l|}{}                                  & \multicolumn{1}{l|}{}                                 & \multicolumn{1}{l|}{\multirow{2}{*}{$\neg sound\_alarm(i)$}} & $held\_for(c\_al, 10)(i-10)$     & false          \\ \cline{4-5}
+\multicolumn{1}{|l|}{}                                  & \multicolumn{1}{l|}{}                                 & \multicolumn{1}{l|}{}                                     & $\neg held\_for(c\_al, 10)(i-10)$ & $c\_al(i-1)$ \\ \hline
 \end{tabular}
 \caption{Function Table for alarm: \cv{al}}
 \end{table}
