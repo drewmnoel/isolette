@@ -1,7 +1,6 @@
 top : THEORY
 BEGIN
 	IMPORTING Time
-	IMPORTING alert
 	IMPORTING Hysteresis
 	IMPORTING isolette
 END top

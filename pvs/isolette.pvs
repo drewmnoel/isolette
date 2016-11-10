@@ -210,7 +210,8 @@ BEGIN
 	  m_tm(4) > m_dh(4) + eps(4) AND
 	  m_tm(5) < m_dl(5) - eps(5) AND
 	  m_dh(2) > m_dl(2) AND
-	  m_dh(3) = m_dh(2) = m_dh(4)
+	  m_dh(3) = m_dh(2) AND m_dh(3) = m_dh(4) AND m_dh(5) = m_dh(4) AND
+	  NOT overlap?(m_dl(4), m_dh(4)) AND NOT overlap?(m_dl(5), m_dh(5))
 	  IMPLIES
 	  c_hc(4) = 0 AND c_hc(5) = 1
 

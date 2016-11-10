@@ -1054,7 +1054,9 @@
         (("" (expand "heater_ft")
           (("" (delete -1 -3 -4 -5)
             (("" (inst-cp -1 4)
-              (("" (inst -1 5) (("" (assert) nil nil)) nil)) nil))
+              (("" (inst -1 5)
+                (("" (assert) (("" (grind) nil nil)) nil)) nil))
+              nil))
             nil))
           nil))
         nil))
@@ -1086,6 +1088,12 @@
     (real_lt_is_strict_total_order name-judgement
      "(strict_total_order?[real])" real_props nil)
     (real_gt_is_strict_total_order name-judgement
-     "(strict_total_order?[real])" real_props nil))
+     "(strict_total_order?[real])" real_props nil)
+    (b2n const-decl "nbit" bit nil)
+    (overlap? const-decl "bool" isolette nil)
+    (real_le_is_total_order name-judgement "(total_order?[real])"
+     real_props nil)
+    (posint_plus_nnint_is_posint application-judgement "posint"
+     integers nil))
    shostak)))
 
