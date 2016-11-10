@@ -188,6 +188,16 @@ BEGIN
 	  c_md(2) = normal AND % Isolette enters normal mode (also fulfills A.2.2)
 	  c_md(4) = off
 
+	% Use A.2.3
+	usecase_a_2_3: CONJECTURE
+	  isolette_ft(m_tm, m_dl, m_dh, m_al, m_ah, m_st, m_sw, eps, c_hc, c_td, c_al, c_md, c_ms) AND
+	  c_md(2) = normal AND
+	  m_tm(3) > m_dl(3) AND m_tm(3) < m_dh(3) AND
+	  m_tm(4) > m_dh(4) AND
+	  m_tm(5) < m_dl(5)
+	  IMPLIES
+	  c_hc(4) = true AND c_hc(5) = false
+
 	alarm_ft_ok: CONJECTURE
 	  FORALL (i:DTIME):
 	    i > 0 AND
